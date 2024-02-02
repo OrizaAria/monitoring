@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\RESTful\ResourceController;
+use App\Models\BarangModel;
+
+class Dashboard extends ResourceController
+{
+    function __construct()
+    {
+        $this->barang = new BarangModel();
+    }
+    // protected $modelName = '\App\Models\BarangModel';
+    /**
+     * Return an array of resource objects, themselves in array format
+     *
+     * @return ResponseInterface
+     */
+    public function index()
+    {
+        $data['barang'] = $this->barang->getBarang();
+        return view('dashboard_pgw', $data);
+    }
+
+    /**
+     * Return the properties of a resource object
+     *
+     * @return ResponseInterface
+     */
+    public function show($id = null)
+    {
+        $data['barang'] = $this->barang->getBarang();
+        return view('hanca/show', $data);
+    }
+
+    /**
+     * Return a new resource object, with default properties
+     *
+     * @return ResponseInterface
+     */
+    public function new()
+    {
+        //
+    }
+
+    /**
+     * Create a new resource object, from "posted" parameters
+     *
+     * @return ResponseInterface
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Return the editable properties of a resource object
+     *
+     * @return ResponseInterface
+     */
+    public function edit($id = null)
+    {
+        //
+    }
+
+    /**
+     * Add or update a model resource, from "posted" properties
+     *
+     * @return ResponseInterface
+     */
+    public function update($id = null)
+    {
+        //
+    }
+
+    /**
+     * Delete the designated resource object from the model
+     *
+     * @return ResponseInterface
+     */
+    public function delete($id = null)
+    {
+        // 
+    }
+}
