@@ -11,6 +11,7 @@
     </div>
 
     <div class="section-body">
+        <?= d($produksi) ?>
     </div>
 </section>
 <?= $this->endSection() ?>

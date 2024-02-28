@@ -19,87 +19,86 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form action="<?= site_url('pegawai') ?>" method="post" enctype="multipart/form-data" autocomplete="off">
-                        <?= csrf_field() ?>
-                        <div class="card-body row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="nama_pegawai" class="col-sm-3 col-form-label">Nama Pegawai</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" autofocus value="<?= old('nama_pegawai'); ?>" required>
+
+                    <div class="card-body">
+                        <?= view('Myth\Auth\Views\_message_block') ?>
+                        <form action="<?= url_to('register') ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+                            <?= csrf_field() ?>
+
+
+                            <div class="form-group">
+                                <label for="nama_pegawai" class="form-label">Nama Pegawai</label>
+                                <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" autofocus value="<?= old('nama_pegawai'); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="30" value="<?= old('alamat'); ?>" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="bagian" class="form-label">Bagian</label>
+                                <select id="bagian" class="form-control" name="bagian" value="<?= old('bagian'); ?>" required>
+                                    <option selected disabled value="">Pilih Bagian...</option>
+                                    <option>Full Proses</option>
+                                    <option>Cutting</option>
+                                    <option>Sewing</option>
+                                    <option>Finishing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="telp" class="form-label">Telepon</label>
+                                <input type="text" class="form-control" id="telp" name="telp" value="<?= old('telp'); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="form-label"><?= lang('Auth.username') ?></label>
+                                <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label"><?= lang('Auth.email') ?></label>
+                                <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" aria-describedby="emailHelp" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>">
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="password"><?= lang('Auth.password') ?></label>
+                                    <input type="password" name="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>" autocomplete="off">
+                                    <div id="pwindicator" class="pwindicator">
+                                        <div class="bar"></div>
+                                        <div class="label"></div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="30" value="<?= old('alamat'); ?>" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
-                                    <div class="col-sm-9">
-                                        <select id="bagian" class="form-control" name="bagian" value="<?= old('bagian'); ?>" required>
-                                            <option selected disabled value="">Pilih Bagian...</option>
-                                            <option>Full Proses</option>
-                                            <option>Cutting</option>
-                                            <option>Sewing</option>
-                                            <option>Finishing</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="telp" class="col-sm-3 col-form-label">Telepon</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="telp" name="telp" value="<?= old('telp'); ?>" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="email_pegawai" class="col-sm-3 col-form-label">Email</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="email_pegawai" name="email_pegawai" value="<?= old('email_pegawai'); ?>" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="password_pegawai" class="col-sm-3 col-form-label">Password</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="password_pegawai" name="password_pegawai" value="<?= old('password_pegawai'); ?>" required>
-                                    </div>
+                                <div class="form-group col-6">
+                                    <label for="pass_confirm"><?= lang('Auth.repeatPassword') ?></label>
+                                    <input type="password" name="pass_confirm" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.repeatPassword') ?>" autocomplete="off">
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col"></div>
-                                        <div class="col">
-                                            <img src="/img/default/default.png" class="img-thumbnail img-preview">
+                            <div class="form-group">
+                                <div class="row mb-3">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <img src="/img/default_user.png" class="img-thumbnail img-preview">
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="upload" onchange="previewFoto()" value="">
+                                            <label class="custom-file-label" for="foto">Choose File..</label>
                                         </div>
-                                        <div class="col"></div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-1"></div>
-                                        <div class="col-10">
-
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewFoto()">
-                                                <label class="custom-file-label" for="foto">Choose file</label>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-1"></div>
-                                    </div>
-
+                                    <div class="col-1"></div>
                                 </div>
+
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-file-export"> Tambah Data</i></button>
-                                </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    <?= lang('Auth.register') ?>
+                                </button>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

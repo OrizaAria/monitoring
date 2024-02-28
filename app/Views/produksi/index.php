@@ -8,93 +8,90 @@
 <section class="section">
     <div class="section-header">
         <h1>Kelola Produksi</h1>
+
     </div>
+
+
+    <?php if (session()->getFlashdata('success')) : ?>
+        <div class="alert alert-success alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">x</button>
+                <b>Success !</b>
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <?php if (session()->getFlashdata('error')) : ?>
+        <div class="alert alert-danger alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">x</button>
+                <b>Error !</b>
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        </div>
+    <?php endif ?>
+
 
     <div class="section-body">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Advanced Table</h4>
-                        <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <h4>Tabel Produksi</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-striped table-md" id="table-1">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <!-- <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                                                <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                            </div> -->
-                                            #
-                                        </th>
-                                        <th>Nama Barang</th>
-                                        <th>Progress</th>
+                                        <th>#</th>
+                                        <th>Proses</th>
+                                        <th>Nama orderan</th>
                                         <th>Customer</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Status</th>
+                                        <th>Jumlah</th>
+                                        <th>Progress</th>
+                                        <th>status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    <?php foreach ($produksi as $prd => $value) : ?>
+
+                                    <?php foreach ($orderan as $ord => $value) : ?>
                                         <tr>
-
-                                            <td><?= $prd + 1 ?></td>
-                                            <td><?= $value->nama_barang; ?></td>
-
-                                            <td class="align-middle">
-                                                <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                    <div class="progress-bar progress-bar-striped bg-success" style="width: 77%"></div>
-                                                </div>
+                                            <th><?= $ord + 1; ?></th>
+                                            <td class="text-primary">
+                                                <h6><?= $value->proses; ?></h6>
                                             </td>
+                                            <td><?= $value->nama_orderan; ?></td>
                                             <td><?= $value->customer; ?></td>
-                                            <td><?= $value->nama_pegawai; ?></td>
-                                            <td><?= $value->status_produksi; ?></td>
-                                            <td class="text-center" style="width: 15;">
-                                                <a href="" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                                <form action="" method="post" class="d-inline" onsubmit="return confirm('Yakin Hapus Data?')">
-                                                    <?= csrf_field() ?>
-                                                    <button class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                            <td><?= $value->jml_orderan; ?> pcs</td>
+                                            <td>
+                                                <?php
+                                                $total = 0;
+                                                $progress = 0;
+                                                foreach ($produksi as $key => $prd) {
+                                                    if ($value->id == $prd->id_orderan) {
+                                                        $total = $total + $prd->jml_pribadi;
+                                                    }
+                                                }
+                                                $progress = floor(($total / $value->jml_orderan) * 100);
+                                                ?>
+                                                <a class="progress" data-toggle="tooltip" data-placement="top" title="<?= $progress ?> %">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated <?= ($progress <= 30) ? 'bg-danger' : (($progress <= 60) ? 'bg-warning' : (($progress <= 80) ? '' : (($progress = 100) ? 'bg-success' : 'bg-secondary'))) ?>" role="progressbar" style="width: <?= $progress ?>%" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </a>
                                             </td>
+                                            <td>
+                                                <span class="badge <?= ($value->status_produksi == "On Proses") ? 'badge-warning' : (($value->status_produksi == "Selesai") ? 'badge-success' : 'badge-secondary') ?>"><?= $value->status_produksi; ?></span>
 
+                                            </td>
+                                            <td class="text-center" style="width: 15;">
 
+                                                <!-- <a href="#" class="btn btn-primary btn-sm btn-edit" data-id_orderan="<?= $value->id; ?>" data-customer="<?= $value->customer; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>">INFO</a> -->
 
-                                            <!-- <td class="p-0 text-center">
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>Create a mobile app</td>
-                                        <td class="align-middle">
-                                            <div class="progress" data-height="4" data-toggle="tooltip" title="100%" style="height: 4px;">
-                                                <div class="progress-bar bg-success" data-width="100" style="width: 100px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-                                        </td>
-                                        <td>2018-01-20</td>
-                                        <td>
-                                            <div class="badge badge-success">Completed</div>
-                                        </td>
-                                        <td><a href="#" class="btn btn-secondary">Detail</a></td> -->
+                                                <a href="<?= site_url('produksi/' . $value->id . '/edit') ?>" class="btn btn-info btn-sm"><i class="fas fa-info"></i></a>
+
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
 
@@ -106,5 +103,40 @@
             </div>
         </div>
     </div>
+
 </section>
+
+
+<!-- Modal -->
+<!-- <form action="/product/update" method="post">
+    <div class="modal fade" id="ModalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class=" modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nama Orderan</label>
+                        <input type="text" class="form-control nama_orderan" name="nama_orderan" placeholder="Nama Orderan">
+                    </div>
+                    <div class="form-group">
+                        <label>customer</label>
+                        <input type="text" class="form-control customer" name="customer" placeholder="customer">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="orderan_id" class="orderan_id">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form> -->
+
 <?= $this->endSection() ?>

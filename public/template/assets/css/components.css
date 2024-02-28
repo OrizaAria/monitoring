@@ -465,6 +465,7 @@ tr:first-child > td > .fc-day-grid-event {
   font-weight: 500; }
 
 .fc button {
+  margin-bottom: 20px;
   height: auto;
   padding: 10px 15px;
   text-shadow: none;

@@ -4,15 +4,21 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\BarangModel;
+use App\Models\OrderanModel;
+use App\Models\PegawaiModel;
+use App\Models\ProduksiModel;
+use App\Models\UpahModel;
 
 class Dashboard extends ResourceController
 {
     function __construct()
     {
-        $this->barang = new BarangModel();
+        $this->orderan = new OrderanModel();
+        $this->pegawai = new PegawaiModel();
+        $this->produksi = new ProduksiModel();
+        $this->upah = new UpahModel();
     }
-    // protected $modelName = '\App\Models\BarangModel';
+
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -20,8 +26,22 @@ class Dashboard extends ResourceController
      */
     public function index()
     {
-        $data['barang'] = $this->barang->getBarang();
-        return view('dashboard_pgw', $data);
+        if (in_groups('operator')) {
+            # code...
+            $data['title'] = 'Dashboard';
+            $data['orderan'] = $this->orderan->getOrderan();
+            $data['prosesProduksi'] = $this->produksi->getProsesProduksi();
+            $data['getHanca'] = $this->produksi->getHanca(user()->id);
+            $data['upahBerjalan'] = $this->upah->getUpahBerjalan(user()->id);
+            $data['produksi'] = $this->produksi->findAll();
+            return view('layout/dashboard', $data);
+        } elseif (in_groups('owner')) {
+            # code...
+            $data['title'] = 'Dashboard';
+            $data['orderan'] = $this->orderan->getProsesProduksi();
+            $data['produksi'] = $this->produksi->findAll();
+            return view('layout/dashboard', $data);
+        }
     }
 
     /**
@@ -31,8 +51,7 @@ class Dashboard extends ResourceController
      */
     public function show($id = null)
     {
-        $data['barang'] = $this->barang->getBarang();
-        return view('hanca/show', $data);
+        //
     }
 
     /**
@@ -82,6 +101,6 @@ class Dashboard extends ResourceController
      */
     public function delete($id = null)
     {
-        // 
+        //
     }
 }

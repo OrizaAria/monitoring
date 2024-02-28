@@ -1,7 +1,7 @@
 "use strict";
 
-$("#modal-1").fireModal({body: 'Modal body text goes here.'});
-$("#modal-2").fireModal({body: 'Modal body text goes here.', center: true});
+$("#modal-1").fireModal({body: 'Modal 1 here.'});
+$("#modal-2").fireModal({body: 'Modal 2 here.', center: true});
 
 let modal_3_body = '<p>Object to create a button on the modal.</p><pre class="language-javascript"><code>';
 modal_3_body += '[\n';
@@ -43,10 +43,10 @@ $("#modal-4").fireModal({
 });
 
 $("#modal-5").fireModal({
-  title: 'Login',
+  title: 'Tambah Data',
   body: $("#modal-login-part"),
   footerClass: 'bg-whitesmoke',
-  autoFocus: false,
+  autoFocus: true,
   onFormSubmit: function(modal, e, form) {
     // Form Data
     let form_data = $(e.target).serialize();
@@ -67,12 +67,12 @@ $("#modal-5").fireModal({
   },
   buttons: [
     {
-      text: 'Login',
+      text: 'Submit',
       submit: true,
       class: 'btn btn-primary btn-shadow',
       handler: function(modal) {
       }
-    }
+    },
   ]
 });
 

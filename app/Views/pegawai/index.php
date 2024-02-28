@@ -1,13 +1,13 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('title') ?>
-<title>Pegawai | M&O</title>
+<title><?= $title; ?> | M&O</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <section class="section">
     <div class="section-header">
-        <h1>Kelola Pegawai</h1>
+        <h1>Kelola <?= $title; ?></h1>
     </div>
 
 
@@ -41,28 +41,33 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-md">
-                        <tbody>
+                    <table class="table table-bordered table-striped table-md" id="table-1">
+                        <thead>
+
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Bagian</th>
                                 <th>Alamat</th>
                                 <th>Telepon</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php foreach ($pegawai as $pgw => $value) : ?>
                                 <tr>
                                     <td><?= $pgw + 1 ?></td>
                                     <td><?= $value->nama_pegawai; ?></td>
-                                    <td><?= $value->bagian; ?></td>
+                                    <td><mark> <?= $value->bagian; ?> </mark></td>
                                     <td><?= $value->alamat; ?></td>
                                     <td><?= $value->telp; ?></td>
-                                    <td class="text-center" style="width: 15;">
-                                        <a href="<?= site_url('pegawai/edit/' . $value->id_pegawai) ?>" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="<?= site_url('pegawai/delete/' . $value->id_pegawai) ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin Hapus Data?')">
+                                    <td><?= $value->name; ?></td>
+                                    <td class="text-center" style="width: 15">
+                                        <a href="<?= site_url('pegawai/edit/' . $value->userId) ?>" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="<?= site_url('pegawai/delete/' . $value->userId) ?>" method="post" class="d-inline" id="del-<?= $value->userId ?>">
                                             <?= csrf_field() ?>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah anda yakin hapus data?" data-confirm-yes="btnHapus(<?= $value->userId ?>)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -76,5 +81,6 @@
 
         </div>
     </div>
+
 </section>
 <?= $this->endSection() ?>

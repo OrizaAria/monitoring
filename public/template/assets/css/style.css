@@ -636,7 +636,7 @@ select.form-control:not([size]):not([multiple]) {
       margin-top: 1px;
       padding: 2px 15px; }
       .card .card-header .btn:not(.note-btn) {
-        border-radius: 5px; }
+        border-radius: 30px; }
       .card .card-header .btn:hover {
         box-shadow: none; }
     .card .card-header .form-control {

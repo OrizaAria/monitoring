@@ -19,9 +19,9 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form action="<?= site_url('pegawai/update/' . $pegawai->id_pegawai) ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <form action="<?= site_url('pegawai/update/' . $pegawai->id) ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                         <?= csrf_field() ?>
-                        <input type="hidden" name="id" value="<?= $pegawai->id_pegawai; ?>">
+                        <input type="hidden" name="id" value="<?= $pegawai->id; ?>">
                         <input type="hidden" name="fotoLama" value="<?= $pegawai->foto; ?>">
                         <div class="card-body row">
                             <div class="col-md-6">
@@ -56,15 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="email_pegawai" class="col-sm-3 col-form-label">Email</label>
+                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="email_pegawai" name="email_pegawai" value="<?= $pegawai->email_pegawai; ?>" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="password_pegawai" class="col-sm-3 col-form-label">Password</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="password_pegawai" name="password_pegawai" value="<?= $pegawai->password_pegawai; ?>" required>
+                                        <input type="text" class="form-control" id="email" name="email" value="<?= $pegawai->email; ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +66,7 @@
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col"></div>
                                         <div class="col">
                                             <img src="/img/<?= $pegawai->foto; ?>" class="img-thumbnail img-preview">
@@ -82,13 +76,10 @@
                                     <div class="row">
                                         <div class="col-1"></div>
                                         <div class="col-10">
-
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewFoto()">
-
+                                                <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="upload" onchange="previewFoto()">
                                                 <label class="custom-file-label" for="foto"><?= $pegawai->foto; ?></label>
                                             </div>
-
                                         </div>
                                         <div class="col-1"></div>
                                     </div>
@@ -103,6 +94,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

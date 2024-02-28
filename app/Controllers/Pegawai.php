@@ -2,17 +2,16 @@
 
 namespace App\Controllers;
 
-// use App\Models\PegawaiModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourcePresenter;
+use App\Models\PegawaiModel;
 
 class Pegawai extends ResourcePresenter
 {
-    // function __construct()
-    // {
-    //     $this->pegawai = new PegawaiModel();
-    // }
-    protected $modelName = '\App\Models\PegawaiModel';
+    function __construct()
+    {
+        $this->users = new PegawaiModel();
+    }
     /**
      * Present a view of resource objects
      *
@@ -20,7 +19,8 @@ class Pegawai extends ResourcePresenter
      */
     public function index()
     {
-        $data['pegawai'] = $this->model->findAll();
+        $data['title'] = 'Pegawai';
+        $data['pegawai'] = $this->users->getPegawai();
         return view('pegawai/index', $data);
     }
 
@@ -58,7 +58,7 @@ class Pegawai extends ResourcePresenter
         $fileFoto = $this->request->getFile('foto');
         // pengkondisian Foto
         if ($fileFoto->getError() == 4) {
-            $namaFoto = 'default.png';
+            $namaFoto = 'default_user.png';
         } else {
             // generate nama Foto random
             $namaFoto = $fileFoto->getRandomName();
@@ -71,15 +71,16 @@ class Pegawai extends ResourcePresenter
             'alamat' => $this->request->getVar('alamat'),
             'bagian' => $this->request->getVar('bagian'),
             'telp' => $this->request->getVar('telp'),
-            'email_pegawai' => $this->request->getVar('email_pegawai'),
-            'password_pegawai' => $this->request->getVar('password_pegawai'),
+            'email' => $this->request->getVar('email'),
+            'username' => $this->request->getVar('username'),
+            'password_hash' => $this->request->getVar('password'),
             'foto' => $namaFoto
 
         ];
 
-        $this->model->insert($data);
+        $this->users->insert($data);
 
-        if ($this->model->affectedRows() > 0) {
+        if ($this->users->affectedRows() > 0) {
             return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Disimpan');
         }
     }
@@ -94,7 +95,7 @@ class Pegawai extends ResourcePresenter
     public function edit($id = null)
     {
         //
-        $pegawai = $this->model->where('id_pegawai', $id)->first();
+        $pegawai = $this->users->where('id', $id)->first();
         if (is_object($pegawai)) {
             # code...
             $data['pegawai'] = $pegawai;
@@ -125,7 +126,7 @@ class Pegawai extends ResourcePresenter
             $namaFoto = $fileFoto->getRandomName();
             // pindahkan file
             $fileFoto->move('img', $namaFoto);
-            if ($this->request->getVar('fotoLama') != 'default.png') {
+            if ($this->request->getVar('fotoLama') != 'default_user.png') {
                 # code...
                 unlink('img/' . $this->request->getVar('fotoLama'));
             }
@@ -136,15 +137,15 @@ class Pegawai extends ResourcePresenter
             'alamat' => $this->request->getVar('alamat'),
             'bagian' => $this->request->getVar('bagian'),
             'telp' => $this->request->getVar('telp'),
-            'email_pegawai' => $this->request->getVar('email_pegawai'),
-            'password_pegawai' => $this->request->getVar('password_pegawai'),
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
             'foto' => $namaFoto
 
         ];
 
-        $this->model->update($id, $data);
+        $this->users->update($id, $data);
 
-        // if ($this->model->affectedRows() > 0) {
+        // if ($this->users->affectedRows() > 0) {
         return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Disimpan');
     }
 
@@ -170,8 +171,8 @@ class Pegawai extends ResourcePresenter
     public function delete($id = null)
     {
         //
-        // $this->model->where('id_pegawai', $id)->delete();
-        $this->model->delete($id);
+        // $this->model->where('id', $id)->delete();
+        $this->users->delete($id);
 
         // if ($this->model->affectedRows() > 0) {
         return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Dihapus');
