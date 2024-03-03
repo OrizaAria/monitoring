@@ -57,7 +57,7 @@
                                     <td><?= $value->jml_orderan; ?> pcs</td>
                                     <td><?= $value->jml_pribadi; ?> pcs</td>
                                     <td>
-                                        <span class="badge <?= ($value->status_hanca == "Menunggu") ? 'badge-secondary' : (($value->status_hanca == "On Proses") ? 'badge-warning' : 'badge-success') ?>"><?= $value->status_hanca; ?></span>
+                                        <span class="badge <?= ($value->status_hanca == "Checked") ? 'badge-primary' : (($value->status_hanca == "On Proses") ? 'badge-warning' : 'badge-success') ?>"><?= $value->status_hanca; ?></span>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

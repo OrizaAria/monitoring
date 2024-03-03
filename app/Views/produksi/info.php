@@ -13,14 +13,20 @@
         <h1 class="mr-3">Info Produksi</h1>
 
         <?php
-        $jml_produksi = 0;
         $progress = 0;
         $jml_selisih = 0;
+        $selisih = 0;
+        $total = 0;
         foreach ($produksi as $prd => $value) {
 
-            $jml_produksi = $jml_produksi + $value->jml_pribadi;
-            $progress = round(($jml_produksi / $value->jml_orderan) * 100);
-            $jml_selisih = $jml_produksi - $orderan->jml_orderan;
+            foreach ($upah as $key => $uph) {
+                if ($value->id_produksi == $uph->id_produksi) {
+                    $total = $total + $uph->jml_konfirmasi;
+                    $statusUpah = $uph->status_upah;
+                    $jml_selisih = $total - $value->jml_orderan;
+                    $progress = round(($total / $value->jml_orderan) * 100);
+                }
+            }
         }
 
         if ($orderan->status_produksi == "On Proses") { ?>
@@ -28,8 +34,8 @@
                 <?= csrf_field() ?>
 
                 <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="jml_akhir" value="<?= $jml_produksi; ?>">
-                <button type="submit" class="btn btn-danger" data-confirm="Produksi|Apakah anda yakin orderan ini telah selesai produksi?" data-confirm-yes="btnSelesai(<?= $orderan->id ?>)">Selesai <i class="bi bi-exclamation-circle"></i></button>
+                <input type="hidden" name="jml_akhir" value="<?= $total; ?>">
+                <button type="submit" class="btn btn-danger" data-confirm="Produksi|Apakah anda yakin orderan ini telah selesai produksi? <?= $total; ?>" data-confirm-yes="btnSelesai(<?= $orderan->id ?>)">Selesai <i class="bi bi-exclamation-circle"></i></button>
             </form>
         <?php } else { ?>
             <span class="badge badge-success"><?= $orderan->status_produksi; ?></span>
@@ -64,10 +70,11 @@
                             <table class="table table-bordered table-md table-hover" id="table-1">
                                 <thead>
                                     <tr class="table-primary">
-                                        <th><i class="fas fa-hashtag"></i></th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Jumlah Barang Yang Dikerjakan</th>
-                                        <th>Status</th>
+                                        <th width="5%"><i class="fas fa-hashtag"></i></th>
+                                        <th width="25%">Nama Pegawai</th>
+                                        <th width="25%">Jumlah yang diinput</th>
+                                        <th width="40%">Jumlah Koreksi</th>
+                                        <th width="5%">Status</th>
                                     </tr>
                                 </thead>
 
@@ -75,56 +82,44 @@
                                     <?php
                                     foreach ($produksi as $ord => $value) : ?>
                                         <tr>
-                                            <td>
-                                                <?php
-                                                $statusUpah = "Selesai Produksi";
-                                                foreach ($upah as $key => $uph) {
-                                                    if ($value->id_produksi == $uph->id_produksi) {
-                                                        $statusUpah = $uph->status_upah;
-                                                    }
-                                                }
-
-                                                if ($statusUpah == "Selesai Produksi") {  ?>
-                                                    <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-total_upah="<?= $value->jml_pribadi * $value->harga_orderan; ?>">
-                                                        <i class="fas fa-plus"></i>
-                                                    </a>
-                                                <?php  } else { ?>
-                                                    <button type="button" class="btn btn-primary btn-sm" disabled>
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                <?php  } ?>
-
-                                            </td>
+                                            <td><?= $ord + 1 ?></td>
                                             <td><?= $value->nama_pegawai; ?></td>
+                                            <td><?= $value->jml_pribadi; ?> pcs</td>
                                             <td>
-                                                <div class="text-small float-right font-weight-bold text-muted">Rp. <?= (number_format(($value->jml_pribadi * $value->harga_orderan), 0, ',', '.')); ?></div>
-                                                <div class="font-weight-bold mb-1">
-
-                                                    <a><?= $value->jml_pribadi; ?> pcs</a>
-
-                                                </div>
-                                            </td>
-                                            <td>
-
                                                 <?php
-                                                $statusUpah = "Selesai Produksi";
                                                 foreach ($upah as $key => $uph) {
                                                     if ($value->id_produksi == $uph->id_produksi) {
-                                                        $statusUpah = $uph->status_upah;
-                                                        if ($uph->status_upah == "Checked") { ?>
-                                                            <span class="badge badge-success"><?= $uph->status_upah ?></span>
-                                                        <?php } elseif ($uph->status_upah == "On Proses") { ?>
-                                                            <span class="badge badge-warning"><?= $uph->status_upah ?></span>
-                                                        <?php } elseif ($uph->status_upah == "Selesai Produksi") { ?>
-                                                            <span class="badge badge-primary"><?= $uph->status_upah ?></span>
+                                                        $selisih = $uph->jml_konfirmasi - $value->jml_pribadi; ?>
 
-                                                        <?php } else { ?>
-                                                            <span class="badge badge-success">Checked</span>
+                                                        <div class="text-small float-right font-weight-bold text-muted">
 
-                                                <?php }
+                                                            <span class="badge <?= ($selisih > 0) ? 'badge-primary' : (($selisih < 0) ? 'badge-danger' : 'badge-succsess'); ?>"><?= $selisih; ?> pcs</span>
+
+                                                        </div>
+                                                        <div class="font-weight-bold mb-1">
+
+                                                            <a><?= $uph->jml_konfirmasi; ?> pcs</a>
+
+                                                        </div>
+
+                                                <?php  }
+                                                } ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $statusUpah = 'Selesai Produksi';
+                                                foreach ($upah as $key => $uph) {
+                                                    if ($value->id_produksi == $uph->id_produksi) {
+
+                                                        if ($uph->status_upah == "Selesai Produksi") {  ?>
+                                                            <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>">
+                                                                <i class="fas fa-plus"></i>
+                                                            </a>
+                                                        <?php  } else { ?>
+                                                            <span class="badge badge-success">Checked</i></span>
+                                                <?php  }
                                                     }
                                                 } ?>
-
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -152,36 +147,27 @@
                                 <b> | Qtty : <?= $orderan->jml_orderan; ?> pcs</b>
                                 <hr>
 
-                                <div class="accordion" id="accordionExample">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#clpsAturanProd" aria-expanded="true" aria-controls="clpsAturanProd">
-                                            <h6>Keterangan</h6>
-                                        </button>
-                                    </h2>
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#clpsAturanProd" aria-expanded="true" aria-controls="clpsAturanProd">
+                                        <h6>Keterangan</h6>
+                                    </button>
+                                </h2>
 
-                                    <div id="clpsAturanProd" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td width="15%">Tumlah Produksi</td>
+                                        <td>: <?= $total; ?> pcs</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Jumlah Orderan</td>
+                                        <td>: <?= $orderan->jml_orderan; ?> pcs</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Selisih</td>
+                                        <td>: <?= $jml_selisih; ?> pcs</td>
+                                    </tr>
+                                </table>
 
-                                        <table class="table table-borderless">
-                                            <tr>
-                                                <td width="15%">Tumlah Produksi</td>
-                                                <td>: <?= $jml_produksi; ?> pcs</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="15%">Jumlah Orderan</td>
-                                                <td>: <?= $orderan->jml_orderan; ?> pcs</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="15%">Selisih</td>
-                                                <td>: <?= $jml_selisih; ?> pcs</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="15%">Total Upah</td>
-                                                <td>: Rp. <?= (number_format(($jml_produksi * $orderan->harga_orderan), 0, ',', '.')); ?></td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +196,8 @@
                     <input type="hidden" class="form-control id_produksi" name="id_produksi">
                     <input type="hidden" class="form-control id_orderan" name="id_orderan">
                     <input type="hidden" class="form-control id_user" name="id_user">
-                    <input type="hidden" class="form-control total_upah" name="total_upah">
+                    <label for="">harga orderan</label>
+                    <input type="text" class="form-control harga_orderan" name="harga_orderan">
 
                     <div class="form-group">
                         <label>Nama Pegawai</label>
@@ -218,7 +205,7 @@
                     </div>
                     <div class="form-group">
                         <label>Jumlah pribadi</label>
-                        <input type="text" class="form-control jml_pribadi" name="jml_pribadi" placeholder="Jumlah Pribadi">
+                        <input type="text" class="form-control jml_konfirmasi" name="jml_konfirmasi" placeholder="Jumlah Pribadi">
                     </div>
                 </div>
                 <div class="modal-footer">

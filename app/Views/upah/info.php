@@ -8,16 +8,6 @@
 <section class="section">
     <div class="section-header">
         <h1>Info Upah</h1>
-        <?php
-        $jml_produksi = 0;
-        $progress = 0;
-        $jml_selisih = 0;
-        foreach ($produksi as $prd => $value) {
-
-            $jml_produksi = $jml_produksi + $value->jml_pribadi;
-            $progress = round(($jml_produksi / $value->jml_orderan) * 100);
-            $jml_selisih = $jml_produksi - $orderan->jml_orderan;
-        } ?>
     </div>
 
     <div class="section-body">
@@ -42,47 +32,50 @@
 
                                 <tbody>
                                     <?php
-                                    foreach ($produksi as $ord => $value) : ?>
+                                    $jml_akhir = 0;
+                                    $selisih = 0;
+                                    $total = 0;
+                                    foreach ($upah as $ord => $value) : ?>
                                         <tr>
                                             <td><?= $ord + 1 ?></td>
                                             <td><?= $value->nama_pegawai; ?></td>
                                             <td>
                                                 <div class="font-weight-bold mb-1">
 
-                                                    <a><?= $value->jml_pribadi; ?> pcs</a>
+                                                    <a><?= $value->jml_konfirmasi; ?> pcs</a>
 
                                                 </div>
                                             </td>
-                                            <td>Rp. <?= (number_format(($value->jml_pribadi * $value->harga_orderan), 0, ',', '.')); ?></td>
+                                            <td>Rp. <?= (number_format(($value->total_upah), 0, ',', '.')); ?></td>
                                             <td>
                                                 <?php
-                                                $statusUpah = "Berjalan";
-                                                foreach ($upah as $key => $uph) {
-                                                    if ($value->id_produksi == $uph->id_produksi) {
-                                                        if ($uph->status_upah == "Checked") {  ?>
+                                                if ($value->status_upah == "Checked") {  ?>
 
-                                                            <form action="<?= site_url('upah/' . $uph->id) ?>" method="post" class="d-inline" id="byr-<?= $uph->id ?>">
-                                                                <?= csrf_field() ?>
-                                                                <input type="hidden" name="_method" value="PUT">
-                                                                <button class="btn btn-danger btn-sm" data-confirm="Bayar Upah?|Apakah anda yakin sudah membayar? <?= $uph->id; ?>" data-confirm-yes="btnBayar(<?= $uph->id ?>)">
-                                                                    <i class="fas fa-check"></i>
-                                                                </button>
-                                                            </form>
+                                                    <form action="<?= site_url('upah/' . $value->id_upah) ?>" method="post" class="d-inline" id="byr-<?= $value->id_upah ?>">
+                                                        <?= csrf_field() ?>
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <button class="btn btn-danger btn-sm" data-confirm="Bayar Upah?|Apakah anda yakin sudah membayar? <?= $value->id_upah; ?>" data-confirm-yes="btnBayar(<?= $value->id_upah ?>)">
+                                                            <i class="fas fa-check"></i>
+                                                        </button>
+                                                    </form>
 
-                                                        <?php  } else { ?>
-                                                            <span class="badge badge-success"><?= $uph->status_upah; ?></i></span>
-                                                <?php  }
-                                                    }
-                                                } ?>
-
-
+                                                <?php  } else { ?>
+                                                    <span class="badge badge-success"><?= $value->status_upah; ?></i></span>
+                                                <?php  } ?>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+
+                                    <?php
+                                        $jml_akhir = $jml_akhir + $value->jml_konfirmasi;
+                                        $selisih = $jml_akhir - $value->jml_orderan;
+                                        $total = $total + $value->total_upah;
+                                    endforeach; ?>
 
 
                                 </tbody>
                             </table>
+
+
                         </div>
                     </div>
                 </div>
@@ -106,7 +99,7 @@
                                 <table class="table table-borderless">
                                     <tr>
                                         <td width="15%">Tumlah Produksi</td>
-                                        <td>: <?= $jml_produksi; ?> pcs</td>
+                                        <td>: <?= $jml_akhir; ?> pcs</td>
                                     </tr>
                                     <tr>
                                         <td width="15%">Jumlah Orderan</td>
@@ -114,11 +107,11 @@
                                     </tr>
                                     <tr>
                                         <td width="15%">Selisih</td>
-                                        <td>: <?= $jml_selisih; ?> pcs</td>
+                                        <td>: <?= $selisih; ?> pcs</td>
                                     </tr>
                                     <tr>
                                         <td width="15%">Total Upah</td>
-                                        <td>: Rp. <?= (number_format(($jml_produksi * $orderan->harga_orderan), 0, ',', '.')); ?></td>
+                                        <td>: Rp. <?= (number_format(($total), 0, ',', '.')); ?></td>
                                     </tr>
                                 </table>
 

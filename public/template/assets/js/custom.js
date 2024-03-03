@@ -58,10 +58,11 @@ $(document).ready(function () {
         const total_upah = $(this).data('total_upah');
         const status_upah = $(this).data('status_upah');
         const tgl_upah = $(this).data('tgl_upah');
+        const harga_orderan = $(this).data('harga_orderan');
 
         const nama_pegawai = $(this).data('nama_pegawai');
-        const jml_pribadi = $(this).data('jml_pribadi');
-        // const jml_konfirmasi = $(this).data('jml_pribadi');
+        const jml_konfirmasi = $(this).data('jml_pribadi');
+        // const jml_konfirmasi = $(this).data('jml_konfirmasi');
 
         // Set data to Form Edit
 
@@ -70,10 +71,11 @@ $(document).ready(function () {
         $('.id_user').val(id_user);
         $('.total_upah').val(total_upah);
         $('.status_upah').val(status_upah);
+        $('.harga_orderan').val(harga_orderan);
         $('.tgl_upah').val(tgl_upah);
 
         $('.nama_pegawai').val(nama_pegawai);
-        $('.jml_pribadi').val(jml_pribadi);
+        $('.jml_konfirmasi').val(jml_konfirmasi);
         // Call Modal Edit
         $('#ModalInfoUpah').modal('show');
     });

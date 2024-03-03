@@ -72,7 +72,9 @@
                                                 $total = $total + $uph->total_upah;
                                             }
                                         } ?>
-                                        Rp. <?= number_format(($total), 0, ',', '.'); ?>
+                                        <span class="badge <?= ($total > 0) ? 'badge-success' : 'badge-warning' ?>">
+                                            Rp. <?= number_format(($total), 0, ',', '.'); ?>
+                                        </span>
                                     </td>
                                     <td></td>
                                     <td class="text-center" style="width: 15;">

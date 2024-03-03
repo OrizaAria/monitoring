@@ -56,7 +56,7 @@
                                     <td><?= date('d/m/Y', strtotime($value->tanggal_mulai)) ?> - <?= date('d/m/Y', strtotime($value->tanggal_mulai)) ?></td>
                                     <td><?= $value->nama_orderan; ?></td>
                                     <td><?= $value->jml_orderan; ?> pcs</td>
-                                    <td><?= $value->jml_pribadi; ?> pcs</td>
+                                    <td><?= $value->jml_konfirmasi; ?> pcs</td>
                                     <td>Rp. <?= (number_format(($value->jml_pribadi * $value->harga_orderan), 0, ',', '.')); ?></td>
                                     <td>
                                         <span class="badge <?= ($value->status_upah == "Checked") ? 'badge-primary' : 'badge-success' ?>"><?= $value->status_upah; ?></span>

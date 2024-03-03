@@ -11,6 +11,7 @@ use App\Models\UpahModel;
 
 class Upah extends ResourceController
 {
+
     function __construct()
     {
         $this->orderan = new OrderanModel();
@@ -63,12 +64,13 @@ class Upah extends ResourceController
      */
     public function create()
     {
+        $total = $this->request->getVar('jml_konfirmasi') * $this->request->getVar('harga_orderan');
         $data = [
             'id_produksi' => $this->request->getVar('id_produksi'),
             'id_orderan' => $this->request->getVar('id_orderan'),
             'id_user' => $this->request->getVar('id_user'),
-            'jml_konfirmasi' => $this->request->getVar('jml_pribadi'),
-            'total_upah' => $this->request->getVar('total_upah'),
+            'jml_konfirmasi' => $this->request->getVar('jml_konfirmasi'),
+            'total_upah' => $total,
             'status_upah' => 'Checked',
             'tgl_upah' => date("d-m-y"),
 
@@ -93,12 +95,13 @@ class Upah extends ResourceController
 
     public function info($id = null)
     {
+
         $orderan = $this->orderan->where('id', $id)->first();
         if (is_object($orderan)) {
             # code...
             $data['orderan'] = $orderan;
             $data['produksi'] = $this->produksi->getInfoProduksi($id);
-            $data['upah'] = $this->upah->findAll();
+            $data['upah'] = $this->upah->getUpahProduksi($id);
             return view('upah/info', $data);
         } else {
             # code...
@@ -122,7 +125,7 @@ class Upah extends ResourceController
         $this->upah->update($id, $data);
 
         if ($this->upah->affectedRows() > 0) {
-            return redirect()->to(site_url('produksi'))->with('success', 'Data Berhasil Disimpan');
+            return redirect()->to(site_url('upah'))->with('success', 'Data Berhasil Disimpan');
         }
         //
     }

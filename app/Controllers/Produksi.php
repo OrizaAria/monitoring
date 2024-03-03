@@ -41,6 +41,7 @@ class Produksi extends ResourceController
     {
         $data['title'] = 'Kerjaan';
         $data['produksi'] = $this->produksi->getHanca(user()->id);
+        $data['upah'] = $this->upah->getJoinUpah();
         return view('produksi/riwayat', $data);
     }
 
@@ -72,7 +73,7 @@ class Produksi extends ResourceController
             # code...
             $data['orderan'] = $orderan;
             $data['produksi'] = $this->produksi->getInfoProduksi($id);
-            $data['upah'] = $this->upah->findAll();
+            $data['upah'] = $this->upah->getUpahProduksi($id);
             return view('produksi/info', $data);
         } else {
             # code...

@@ -25,6 +25,23 @@ class UpahModel extends Model
         $query = $builder->get();
         return $query->getResult();
     }
+
+
+    function getUpahProduksi($id = null)
+    {
+        $builder = $this->db->table('upah');
+        $builder->select('*');
+        $builder->select('users.id as id_user, users.foto as foto_pegawai, produksi.created_at as tanggal_mulai, produksi.id as id_produksi, orderan.id as id_orderan, upah.id as id_upah');
+        $builder->join('orderan', 'orderan.id = upah.id_orderan');
+        $builder->join('produksi', 'produksi.id = upah.id_produksi');
+        $builder->join('users', 'users.id = upah.id_user');
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
+        $builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
+        $builder->where('upah.id_orderan', $id);
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
     function getUpah($id = null)
     {
         $builder = $this->db->table('upah');

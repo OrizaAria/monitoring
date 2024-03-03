@@ -17,6 +17,7 @@ class OrderanModel extends Model
         $builder->select('*');
         $builder->orderBy('tgl_masuk', 'ASC');
         $builder->where('orderan.proses', user()->bagian);
+        $builder->where('orderan.status_produksi', 'On Proses');
         $query = $builder->get();
         return $query->getResult();
     }
@@ -26,7 +27,7 @@ class OrderanModel extends Model
         $builder = $this->db->table('orderan');
         $builder->select('*');
         $builder->orderBy('tgl_masuk', 'ASC');
-        // $builder->where('orderan.status_produksi', 'On Proses');
+        $builder->where('orderan.status_produksi', 'On Proses');
         $query = $builder->get();
         return $query->getResult();
     }
