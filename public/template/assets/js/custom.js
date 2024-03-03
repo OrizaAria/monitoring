@@ -80,6 +80,12 @@ $(document).ready(function () {
         $('#ModalInfoUpah').modal('show');
     });
 
+    // get Edit Product
+    $('.btn-info-orederan').on('click', function () {
+        // Call Modal Edit
+        $('#ModalInfoOrderan').modal('show');
+    });
+
 
 });
 

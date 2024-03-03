@@ -34,17 +34,7 @@ class orderan extends ResourceController
      */
     public function show($id = null)
     {
-        $orderan = $this->orderan->where('id', $id)->first();
-
-        if (is_object($orderan)) {
-            # code...
-            $data['orderan'] = $orderan;
-            $data['produksi'] = $this->produksi->getInfoProduksi($id);
-            return view('orderan/info', $data);
-        } else {
-            # code...
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+        // 
     }
 
     /**

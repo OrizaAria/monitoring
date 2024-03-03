@@ -293,7 +293,11 @@
 
                                             <tr>
                                                 <td class="text-center" style="width: 5%">
-                                                    <a href="<?= site_url('orderan/' . $value->id) ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
+                                                    <!-- <a href="<?= site_url('orderan/' . $value->id) ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a> -->
+
+                                                    <a href="#" class="btn btn-primary btn-sm btn-info-orederan position-relative">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
                                                 </td>
                                                 <td style="width: 15%"><?= $value->nama_orderan; ?></td>
                                                 <td style="width: 10%"><?= $value->jml_orderan; ?> pcs</td>
@@ -317,5 +321,52 @@
 
 </section>
 
+
+<!-- Modal -->
+<form action="<?= site_url('produksi') ?>" method="post">
+    <?= csrf_field() ?>
+    <div class="modal fade" id="ModalInfoOrderan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class=" modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Info Produksi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" class="form-control" id="id" name="id" value="<?= $value->id; ?>">
+                    <input type="hidden" class="form-control" id="id_user" name="id_user" value="<?= user()->id ?>">
+
+                    <img src="/img/<?= $value->foto; ?>" class="card-img-top mb-3" alt="">
+
+                    <h4><?= $value->nama_orderan; ?></h4>
+                    <div class="float-right font-weight-bold">
+
+                        <b>Deadline : <?= $value->tgl_masuk; ?></b>
+                    </div>
+                    <div class="font-weight-bold mb-1">
+                        <h6 class="badge badge-success"><?= user()->bagian ?></h6>
+                        <b> | Qtty : <?= $value->jml_orderan; ?> pcs</b>
+                    </div>
+
+                    <hr>
+
+                    <h2 class="mb-0">Aturan Produksi</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio minus quae nesciunt molestias, accusamus quam voluptas ex reprehenderit culpa quisquam illum recusandae. Illo enim aliquam ipsam? Nisi ex quasi rem!</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi totam voluptate sequi cumque illo! Doloremque quasi, praesentium eos aliquid unde voluptate cumque recusandae esse iusto neque magni quidem et tempora!</p>
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="orderan_id" class="orderan_id">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Kerjakan >></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <?= $this->endSection(); ?>
