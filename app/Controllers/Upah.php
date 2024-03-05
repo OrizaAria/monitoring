@@ -70,9 +70,9 @@ class Upah extends ResourceController
             'id_orderan' => $this->request->getVar('id_orderan'),
             'id_user' => $this->request->getVar('id_user'),
             'jml_konfirmasi' => $this->request->getVar('jml_konfirmasi'),
+            'tgl_upah' => $this->request->getVar('tgl_upah'),
             'total_upah' => $total,
             'status_upah' => 'Checked',
-            'tgl_upah' => date("d-m-y"),
 
         ];
 

@@ -27,26 +27,6 @@ class orderan extends ResourceController
         return view('orderan/index', $data);
     }
 
-    /**
-     * Return the properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function show($id = null)
-    {
-        // 
-    }
-
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-
-        return view('orderan/new');
-    }
 
     /**
      * Create a new resource object, from "posted" parameters
@@ -81,6 +61,7 @@ class orderan extends ResourceController
             'proses' => $this->request->getVar('proses'),
             'jml_orderan' => $this->request->getVar('jml_orderan'),
             'harga_orderan' => $this->request->getVar('harga_orderan'),
+            'aturan' => $this->request->getVar('aturan'),
             'foto' => $namaFoto
 
         ];
@@ -93,22 +74,35 @@ class orderan extends ResourceController
     }
 
     /**
-     * Return the editable properties of a resource object
+     * Add or update a model resource, from "posted" properties
      *
      * @return ResponseInterface
      */
     public function edit($id = null)
     {
+
         $orderan = $this->orderan->where('id', $id)->first();
         if (is_object($orderan)) {
-            # code...
             $data['orderan'] = $orderan;
             return view('orderan/edit', $data);
         } else {
-            # code...
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+
+    public function show($id = null)
+    {
+
+        $orderan = $this->orderan->where('id', $id)->first();
+        if (is_object($orderan)) {
+            $data['orderan'] = $orderan;
+            $data['produksi'] = $this->produksi->getInfoProduksi($id);
+            return view('orderan/info', $data);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
 
     /**
      * Add or update a model resource, from "posted" properties
@@ -117,12 +111,6 @@ class orderan extends ResourceController
      */
     public function update($id = null)
     {
-
-        // cara 1 : name sama
-        // $data = $this->request->getPost();
-        // unset($data['_method']);
-
-        // cara 2 : nama beda
         // ambil gambar
         $fileFoto = $this->request->getFile('foto');
         // pengkondisian Foto
@@ -147,8 +135,7 @@ class orderan extends ResourceController
             'proses' => $this->request->getVar('proses'),
             'jml_orderan' => $this->request->getVar('jml_orderan'),
             'harga_orderan' => $this->request->getVar('harga_orderan'),
-            'status_produksi' => $this->request->getVar('status_produksi'),
-            'jml_akhir' => $this->request->getVar('jml_akhir'),
+            'aturan' => $this->request->getVar('aturan'),
             'foto' => $namaFoto
 
         ];
@@ -166,12 +153,6 @@ class orderan extends ResourceController
         $this->orderan->update($id, $data);
         return redirect()->to(site_url('produksi'))->with('success', 'Data Berhasil Diubah');
     }
-
-    // public function destroy($id)
-    // {
-    //     $this->db->table('orderan')->where(['id' => $id])->delete();
-    //     return redirect()->to(site_url('orderan'))->with('success', 'Data Berhasil Dihapus');
-    // }
 
     /**
      * Delete the designated resource object from the model

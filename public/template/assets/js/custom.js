@@ -80,11 +80,51 @@ $(document).ready(function () {
         $('#ModalInfoUpah').modal('show');
     });
 
-    // get Edit Product
+    // Info Orderan
     $('.btn-info-orederan').on('click', function () {
+
+        // get data from button edit
+        const id_orderan = $(this).data('id_orderan');
+        const nama_orderan = $(this).data('nama_orderan');
+        const proses = $(this).data('proses');
+        const jml_orderan = $(this).data('jml_orderan');
+        const harga_orderan = $(this).data('harga_orderan');
+        // const formatRupiah = new Intl.NumberFormat('id-ID', {
+        //     style: 'currency',
+        //     currency: 'IDR',
+        // }).format(harga_orderan);
+        const tgl_masuk = $(this).data('tgl_masuk');
+        const aturan = $(this).data('aturan');
+        const foto = $(this).data('foto');
+        // const jml_konfirmasi = $(this).data('jml_konfirmasi');
+
+        // Set data to Form Edit
+        $("#info-orderan #id_orderan").val(id_orderan);
+        $("#info-orderan #nama_orderan").val(nama_orderan);
+        $("#info-orderan #proses").val(proses);
+        $("#info-orderan #jml_orderan").val(jml_orderan);
+        $("#info-orderan #harga_orderan").val(harga_orderan.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.'));
+        // $("#info-orderan #harga_orderan").val(formatRupiah);
+        $("#info-orderan #tgl_masuk").val(tgl_masuk);
+        $("#info-orderan #aturan").val(aturan);
+        $("#info-orderan #fotoOrderan").attr("src","/img/"+foto);
         // Call Modal Edit
+
+
         $('#ModalInfoOrderan').modal('show');
     });
+    
+    // Tambah Data Pegawai
+    $('.btn-tambah-pegawai').on('click', function () {
+        $('#ModalTambahPegawai').modal('show');
+    });
+    
+    
+    // Tambah Data Orderan
+    $('.btn-tambah-orderan').on('click', function () {
+        $('#ModalTambahOrderan').modal('show');
+    });
+    
 
 
 });

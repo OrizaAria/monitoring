@@ -124,44 +124,4 @@
     </div>
 </section>
 
-<!-- <form action="<?= site_url('upah') ?>" method="post">
-    <?= csrf_field() ?>
-    <div class="modal fade" id="ModalUpdateUpah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class=" modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Info Produksi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <input type="hidden" name="_method" value="PUT">
-                    <input type="text" class="form-control id_upah" name="id_upah">
-                    <input type="text" class="form-control id_produksi" name="id_produksi">
-                    <input type="text" class="form-control id_orderan" name="id_orderan">
-                    <input type="text" class="form-control id_user" name="id_user">
-                    <input type="text" class="form-control total_upah" name="total_upah">
-
-                    <div class="form-group">
-                        <label>Nama Pegawai</label>
-                        <input type="text" class="form-control nama_pegawai" name="nama_pegawai" placeholder="Nama Pegawai">
-                    </div>
-                    <div class="form-group">
-                        <label>Jumlah pribadi</label>
-                        <input type="text" class="form-control jml_pribadi" name="jml_pribadi" placeholder="Jumlah Pribadi">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="orderan_id" class="orderan_id">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form> -->
-
-
 <?= $this->endSection() ?>

@@ -3,18 +3,17 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\RESTful\ResourcePresenter;
 use App\Models\PegawaiModel;
 
-class Pegawai extends ResourceController
+class Pegawai extends ResourcePresenter
 {
-
     function __construct()
     {
         $this->users = new PegawaiModel();
     }
     /**
-     * Return an array of resource objects, themselves in array format
+     * Present a view of resource objects
      *
      * @return ResponseInterface
      */
@@ -26,7 +25,9 @@ class Pegawai extends ResourceController
     }
 
     /**
-     * Return the properties of a resource object
+     * Present a view to present a specific resource object
+     *
+     * @param string $id
      *
      * @return ResponseInterface
      */
@@ -36,19 +37,20 @@ class Pegawai extends ResourceController
     }
 
     /**
-     * Return a new resource object, with default properties
+     * Present a view to present a new single resource object
      *
-     * @return ResponseInterface
+     * @return mixed
      */
     public function new()
     {
-        //
+        return view('pegawai/new');
     }
 
     /**
-     * Create a new resource object, from "posted" parameters
+     * Process the creation/insertion of a new resource object.
+     * This should be a POST.
      *
-     * @return ResponseInterface
+     * @return mixed
      */
     public function create()
     {
@@ -84,25 +86,33 @@ class Pegawai extends ResourceController
     }
 
     /**
-     * Return the editable properties of a resource object
+     * Present a view to edit the properties of a specific resource object
      *
-     * @return ResponseInterface
+     * @param mixed $id
+     *
+     * @return mixed
      */
     public function edit($id = null)
     {
+        //
         $pegawai = $this->users->where('id', $id)->first();
         if (is_object($pegawai)) {
+            # code...
             $data['pegawai'] = $pegawai;
             return view('pegawai/edit', $data);
         } else {
+            # code...
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 
     /**
-     * Add or update a model resource, from "posted" properties
+     * Process the updating, full or partial, of a specific resource object.
+     * This should be a POST.
      *
-     * @return ResponseInterface
+     * @param mixed $id
+     *
+     * @return mixed
      */
     public function update($id = null)
     {
@@ -135,14 +145,28 @@ class Pegawai extends ResourceController
 
         $this->users->update($id, $data);
 
+        // if ($this->users->affectedRows() > 0) {
         return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Disimpan');
     }
 
+    /**
+     * Present a view to confirm the deletion of a specific resource object
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+    public function remove($id = null)
+    {
+        //
+    }
 
     /**
-     * Delete the designated resource object from the model
+     * Process the deletion of a specific resource object
      *
-     * @return ResponseInterface
+     * @param mixed $id
+     *
+     * @return mixed
      */
     public function delete($id = null)
     {

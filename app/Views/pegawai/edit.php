@@ -19,9 +19,9 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form action="<?= site_url('pegawai/update/' . $pegawai->id) ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <form action="<?= site_url('pegawai/' . $pegawai->id) ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                         <?= csrf_field() ?>
-                        <input type="hidden" name="id" value="<?= $pegawai->id; ?>">
+                        <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="fotoLama" value="<?= $pegawai->foto; ?>">
                         <div class="card-body row">
                             <div class="col-md-6">

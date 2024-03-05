@@ -31,4 +31,14 @@ class OrderanModel extends Model
         $query = $builder->get();
         return $query->getResult();
     }
+
+    function getProduksiSelesai()
+    {
+        $builder = $this->db->table('orderan');
+        $builder->select('*');
+        $builder->orderBy('tgl_masuk', 'ASC');
+        $builder->where('orderan.status_produksi', 'Selesai');
+        $query = $builder->get();
+        return $query->getResult();
+    }
 }

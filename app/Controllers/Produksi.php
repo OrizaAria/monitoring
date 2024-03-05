@@ -53,7 +53,7 @@ class Produksi extends ResourceController
     public function create()
     {
         $data = [
-            'id_orderan' => $this->request->getVar('id'),
+            'id_orderan' => $this->request->getVar('id_orderan'),
             'id_user' => $this->request->getVar('id_user'),
         ];
         $this->produksi->insert($data);

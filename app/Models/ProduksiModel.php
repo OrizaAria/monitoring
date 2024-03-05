@@ -58,7 +58,7 @@ class ProduksiModel extends Model
     {
         $builder = $this->db->table('produksi');
         $builder->select('*');
-        $builder->select('produksi.id as id_produksi');
+        $builder->select('produksi.id as id_produksi, orderan.foto as foto_orderan');
         $builder->join('orderan', 'orderan.id = produksi.id_orderan');
         $builder->join('users', 'users.id = produksi.id_user');
         $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');

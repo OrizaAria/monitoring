@@ -110,16 +110,17 @@
                                                 $statusUpah = 'Selesai Produksi';
                                                 foreach ($upah as $key => $uph) {
                                                     if ($value->id_produksi == $uph->id_produksi) {
-
-                                                        if ($uph->status_upah == "Selesai Produksi") {  ?>
-                                                            <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>">
-                                                                <i class="fas fa-plus"></i>
-                                                            </a>
-                                                        <?php  } else { ?>
-                                                            <span class="badge badge-success">Checked</i></span>
-                                                <?php  }
+                                                        $statusUpah = $uph->status_upah;
                                                     }
-                                                } ?>
+                                                }
+
+                                                if ($statusUpah == "Selesai Produksi") {  ?>
+                                                    <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-tgl_upah="<?= date('Y-m-d') ?>">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
+                                                <?php  } else { ?>
+                                                    <span class="badge badge-success">Checked</i></span>
+                                                <?php  } ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -196,8 +197,8 @@
                     <input type="hidden" class="form-control id_produksi" name="id_produksi">
                     <input type="hidden" class="form-control id_orderan" name="id_orderan">
                     <input type="hidden" class="form-control id_user" name="id_user">
-                    <label for="">harga orderan</label>
-                    <input type="text" class="form-control harga_orderan" name="harga_orderan">
+                    <input type="hidden" class="form-control harga_orderan" name="harga_orderan">
+                    <input type="hidden" class="form-control tgl_upah" name="tgl_upah">
 
                     <div class="form-group">
                         <label>Nama Pegawai</label>

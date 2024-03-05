@@ -40,11 +40,12 @@
                     <table class="table table-bordered table-striped table-md" id="table-1">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th width="20%">Tanggal Produksi</th>
+                                <th width="5%">#</th>
+                                <th width="20%">Tanggal Upah</th>
                                 <th width="15%">Nama orderan</th>
                                 <th width="10%">Jumlah orderan</th>
                                 <th width="10%">Jumlah Pribadi</th>
+                                <th width="10%">Harga Orderan</th>
                                 <th>Upah</th>
                                 <th>Status</th>
                             </tr>
@@ -53,11 +54,12 @@
                             <?php foreach ($upah as $key => $value) : ?>
                                 <tr>
                                     <td><?= $key + 1; ?></td>
-                                    <td><?= date('d/m/Y', strtotime($value->tanggal_mulai)) ?> - <?= date('d/m/Y', strtotime($value->tanggal_mulai)) ?></td>
+                                    <td><?= date('d/m/Y', strtotime($value->tgl_upah)) ?></td>
                                     <td><?= $value->nama_orderan; ?></td>
                                     <td><?= $value->jml_orderan; ?> pcs</td>
                                     <td><?= $value->jml_konfirmasi; ?> pcs</td>
-                                    <td>Rp. <?= (number_format(($value->jml_pribadi * $value->harga_orderan), 0, ',', '.')); ?></td>
+                                    <td>Rp. <?= (number_format(($value->harga_orderan), 0, ',', '.')); ?></td>
+                                    <td>Rp. <?= (number_format(($value->total_upah), 0, ',', '.')); ?></td>
                                     <td>
                                         <span class="badge <?= ($value->status_upah == "Checked") ? 'badge-primary' : 'badge-success' ?>"><?= $value->status_upah; ?></span>
                                     </td>

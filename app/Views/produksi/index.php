@@ -87,7 +87,6 @@
                                             </td>
                                             <td class="text-center" style="width: 15;">
 
-                                                <!-- <a href="#" class="btn btn-primary btn-sm btn-edit" data-id_orderan="<?= $value->id; ?>" data-customer="<?= $value->customer; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>">INFO</a> -->
 
                                                 <a href="<?= site_url('produksi/' . $value->id . '/edit') ?>" class="btn btn-info btn-sm"><i class="fas fa-info"></i></a>
 
