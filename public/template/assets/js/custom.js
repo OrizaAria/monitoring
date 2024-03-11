@@ -36,6 +36,9 @@ function returnLogout() {
 function btnSelesai(id) {
     $('#upd-' + id).submit()
 }
+function btnKirim(id) {
+    $('#krm-' + id).submit()
+}
 // modal ACC Upah
 function btnUpah(id) {
     $('#uph-' + id).submit()
@@ -128,4 +131,7 @@ $(document).ready(function () {
 
 
 });
+
+
+
 

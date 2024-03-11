@@ -38,8 +38,11 @@ class Dashboard extends ResourceController
         } elseif (in_groups('owner')) {
             # code...
             $data['title'] = 'Dashboard';
-            $data['orderan'] = $this->orderan->getProsesProduksi();
+            $data['progressProduksi'] = $this->orderan->getProgressProduksi();
+            $data['produksiSelesai'] = $this->orderan->getProduksiSelesai();
+            $data['orderan'] = $this->orderan->findAll();
             $data['produksi'] = $this->produksi->findAll();
+            $data['monitoringUpah'] = $this->upah->getMonitoringUpah();
             return view('layout/dashboard', $data);
         }
     }

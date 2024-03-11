@@ -125,7 +125,22 @@ class Upah extends ResourceController
         $this->upah->update($id, $data);
 
         if ($this->upah->affectedRows() > 0) {
-            return redirect()->to(site_url('upah'))->with('success', 'Data Berhasil Disimpan');
+            return redirect()->to(site_url('upah'));
+        }
+    }
+
+    public function bayar($id = null)
+    {
+        $data = [
+            'status_upah' => 'Dibayarkan',
+            'tgl_upah' => date("d-m-y"),
+
+        ];
+
+        $this->upah->update($id, $data);
+
+        if ($this->upah->affectedRows() > 0) {
+            return redirect()->to(site_url('dashboard'));
         }
         //
     }

@@ -22,7 +22,7 @@ class OrderanModel extends Model
         return $query->getResult();
     }
 
-    function getProsesProduksi()
+    function getProgressProduksi()
     {
         $builder = $this->db->table('orderan');
         $builder->select('*');

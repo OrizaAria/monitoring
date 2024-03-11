@@ -154,6 +154,15 @@ class orderan extends ResourceController
         return redirect()->to(site_url('produksi'))->with('success', 'Data Berhasil Diubah');
     }
 
+    public function kirim($id = null)
+    {
+        $data = [
+            'status_produksi' => 'Terkirim',
+        ];
+        $this->orderan->update($id, $data);
+        return redirect()->to(site_url('dashboard'));
+    }
+
     /**
      * Delete the designated resource object from the model
      *

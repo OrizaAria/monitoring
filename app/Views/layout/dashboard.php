@@ -14,7 +14,7 @@
 
     if (in_groups('owner')) : ?>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <div class="card">
                     <div class="card-header">
                         <h4>Progress Produksi</h4>
@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <?php foreach ($orderan as $ord => $order) : ?>
+                                    <?php foreach ($progressProduksi as $ord => $order) : ?>
                                         <tr>
                                             <td class="text-center"><?= $ord + 1; ?></td>
                                             <td>
@@ -81,21 +81,50 @@
                 </div>
 
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div class="card card-statistic-1">
-                    <a href="" class="bg-primary card-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+                    <a href="<?= site_url('orderan') ?>" class="bg-primary card-icon">
+                        <i class="fas fa-business-time"></i>
                     </a>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Kerjaan Selesai</h4>
+                            <h4>Tambah Orderan Baru</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-7">
+                                    <?php $jmlOrderan = 0;
+                                    foreach ($orderan as $key => $value) {
+                                        $jmlOrderan = $jmlOrderan + 1;
+                                    }
+                                    echo $jmlOrderan ?>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm position-relative btn-tambah-orderan">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-statistic-1">
+                    <a href="<?= site_url('produksi') ?>" class="bg-primary card-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </a>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Barang Yang Perlu Dikirim</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-7">
-                                    200
+                                    <?php $jmlProduksiSelesai = 0;
+                                    foreach ($produksiSelesai as $key => $value) {
+                                        $jmlProduksiSelesai = $jmlProduksiSelesai + 1;
+                                    }
+                                    echo $jmlProduksiSelesai ?>
                                 </div>
-                                <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpSelesai" aria-expanded="false" aria-controls="clpSelesai">
+                                <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpProduksiSelesai" aria-expanded="false" aria-controls="clpProduksiSelesai">
                                     <i class="fas fa-angle-double-down"></i>
                                 </a>
                             </div>
@@ -103,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="collapse" id="clpSelesai">
+                <div class="collapse" id="clpProduksiSelesai">
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-bordered table-striped table-md" id="table-1">
@@ -112,30 +141,50 @@
                                         <th>Nama Orderan</th>
                                         <th>Customer</th>
                                         <th>Jumlah</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($produksiSelesai as $key => $value) { ?>
+                                        <tr>
+                                            <td><?= $value->nama_orderan; ?></td>
+                                            <td><?= $value->customer; ?></td>
+                                            <td><?= $value->jml_akhir; ?></td>
+                                            <td>
+                                                <form action="<?= site_url('orderan/' . $value->id . '/kirim') ?>" method="post" enctype="multipart/form-data" id="krm-<?= $value->id ?>">
+                                                    <?= csrf_field() ?>
 
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <button type="submit" class="btn btn-success btn-sm" data-confirm="Pengiriman|Apakah anda yakin orderan ini telah terkirim?<?= $value->id ?>" data-confirm-yes="btnKirim(<?= $value->id ?>)">Kirim</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- Card Upah Perlu Dibayar -->
                 <div class="card card-statistic-1">
                     <a href="" class="bg-primary card-icon">
                         <i class="fas fa-money-bill-wave"></i>
                     </a>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Kerjaan Selesai</h4>
+                            <h4>Upah yang perlu dibayar</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-7">
-                                    200
+                                    <?php
+                                    foreach ($monitoringUpah as $jmlUpah => $value) {
+                                        $jmlUpah = $jmlUpah + 1;
+                                    }
+                                    echo $jmlUpah; ?>
                                 </div>
-                                <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpSelesai" aria-expanded="false" aria-controls="clpSelesai">
+                                <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpUpahPerluBayar" aria-expanded="false" aria-controls="clpUpahPerluBayar">
                                     <i class="fas fa-angle-double-down"></i>
                                 </a>
                             </div>
@@ -143,26 +192,39 @@
                     </div>
                 </div>
 
-                <div class="card card-statistic-1">
-                    <a href="" class="bg-primary card-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </a>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Kerjaan Selesai</h4>
-                        </div>
+                <div class="collapse" id="clpUpahPerluBayar">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-7">
-                                    200
-                                </div>
-                                <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpSelesai" aria-expanded="false" aria-controls="clpSelesai">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-md">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th width="40%">Nama Operator</th>
+                                            <th width="50%">Upah</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($monitoringUpah as $key => $value) { ?>
+                                            <tr>
+                                                <td><?= $value->nama_pegawai; ?></td>
+                                                <td>Rp. <?= (number_format(($value->total_upah), 0, ',', '.')); ?></td>
+                                                <td>
+                                                    <form action="<?= site_url('upah/' . $value->id_upah . '/bayar') ?>" method="post" class="d-inline" id="byr-<?= $value->id_upah ?>">
+                                                        <?= csrf_field() ?>
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <button class="btn btn-danger btn-sm" data-confirm="Bayar Upah?|Apakah anda yakin sudah membayar?" data-confirm-yes="btnBayar(<?= $value->id_upah ?>)">Bayar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- End Card Upah Perlu Dibayar -->
 
             </div>
         </div>
@@ -456,4 +518,106 @@
 
 <?php endif; ?>
 
+
+<?php if (in_groups('owner')) : ?>
+    <!-- Modal Tambah Orderan -->
+    <form action="<?= site_url('orderan') ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+        <?= csrf_field() ?>
+        <div class="modal fade" id="ModalTambahOrderan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class=" modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pegawai</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk" autofocus value="<?= old('tgl_masuk'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama_orderan" class="col-sm-3 col-form-label">Nama Orderan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="nama_orderan" name="nama_orderan" autofocus value="<?= old('nama_orderan'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="brand" class="col-sm-3 col-form-label">Brand</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="brand" name="brand" value="<?= old('brand'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="customer" class="col-sm-3 col-form-label">Customer</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="customer" name="customer" value="<?= old('customer'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jml_orderan" class="col-sm-3 col-form-label">Jumlah orderan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="jml_orderan" name="jml_orderan" value="<?= old('jml_orderan'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="harga_orderan" class="col-sm-3 col-form-label">Harga</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="harga_orderan" name="harga_orderan" value="<?= old('harga_orderan'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="proses" class="col-sm-3 col-form-label">Proses</label>
+                            <div class="col-sm-9">
+                                <select id="proses" class="form-control" name="proses" value="<?= old('proses'); ?>" required>
+                                    <option selected disabled value="">Pilih Proses...</option>
+                                    <option>Full Proses</option>
+                                    <option>Cutting</option>
+                                    <option>Sewing</option>
+                                    <option>Finishing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row mb-3">
+                                <div class="col"></div>
+                                <div class="col">
+                                    <img src="/img/default_shirt.png" class="img-thumbnail img-preview">
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-10">
+
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="Upload" onchange="previewFoto()">
+                                        <label class="custom-file-label" for="foto">Choose file..</label>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="aturan" class="col-sm-3 col-form-label">Aturan Produksi</label>
+                            <div class="col-sm-9">
+
+                                <textarea class="form-control" name="aturan" id="aturan" value="<?= old('aturan'); ?>" required></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
 <?= $this->endSection(); ?>

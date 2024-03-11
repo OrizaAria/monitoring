@@ -50,7 +50,6 @@
                                 <th width="20%">Customer</th>
                                 <th width="10%">Jumlah</th>
                                 <th width="20%">Total Upah</th>
-                                <th width="10%">status Upah</th>
                                 <th width="5%">Action</th>
                             </tr>
                         </thead>
@@ -76,7 +75,6 @@
                                             Rp. <?= number_format(($total), 0, ',', '.'); ?>
                                         </span>
                                     </td>
-                                    <td></td>
                                     <td class="text-center" style="width: 15;">
                                         <a href="<?= site_url('upah/' . $value->id . '/info') ?>" class="btn btn-info btn-sm"><i class="fas fa-info"></i></a>
                                     </td>
