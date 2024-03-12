@@ -202,7 +202,7 @@
 
                     <div class="form-group">
                         <label>Nama Pegawai</label>
-                        <input type="text" class="form-control nama_pegawai" name="nama_pegawai" placeholder="Nama Pegawai">
+                        <input type="text" class="form-control nama_pegawai" name="nama_pegawai" placeholder="Nama Pegawai" disabled>
                     </div>
                     <div class="form-group">
                         <label>Jumlah pribadi</label>
@@ -211,8 +211,8 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="orderan_id" class="orderan_id">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
                 </div>
             </div>
         </div>
