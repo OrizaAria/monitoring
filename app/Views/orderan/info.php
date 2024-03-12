@@ -21,7 +21,7 @@
                     <form action="<?= site_url('produksi') ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                         <?= csrf_field() ?>
                         <input type="hidden" name="fotoLama" value="<?= $orderan->foto; ?>">
-                        <input type="hidden" class="form-control" id="id" name="id" value="<?= $orderan->id; ?>">
+                        <input type="hidden" class="form-control" id="id_orderan" name="id_orderan" value="<?= $orderan->id; ?>">
 
                         <input type="hidden" class="form-control" id="id_user" name="id_user" value="<?= user()->id ?>">
                         <div class="card-body row">

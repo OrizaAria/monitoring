@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
 </head>
 
-<body>
+<body class="bg-primary">
     <?= $this->renderSection('logContent'); ?>
 
     <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>

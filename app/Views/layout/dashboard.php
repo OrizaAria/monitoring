@@ -50,6 +50,9 @@
                                                     }
                                                 }
                                                 $progress = round(($total / $order->jml_orderan) * 100);
+                                                if ($progress > 100) {
+                                                    $progress = 100;
+                                                }
                                                 ?>
 
                                                 <div class="mb-4">
@@ -179,10 +182,11 @@
                             <div class="row">
                                 <div class="col-7">
                                     <?php
-                                    foreach ($monitoringUpah as $jmlUpah => $value) {
-                                        $jmlUpah = $jmlUpah + 1;
-                                    }
-                                    echo $jmlUpah; ?>
+                                    $jmlUpah = 0;
+                                    foreach ($monitoringUpah as $key => $value) {
+                                        $jmlUpah = $jmlUpah + $value->total_upah;
+                                    } ?>
+                                    Rp. <?= (number_format(($jmlUpah), 0, ',', '.')); ?>
                                 </div>
                                 <a href="" class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#clpUpahPerluBayar" aria-expanded="false" aria-controls="clpUpahPerluBayar">
                                     <i class="fas fa-angle-double-down"></i>
