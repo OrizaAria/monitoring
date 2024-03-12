@@ -101,7 +101,7 @@ class Produksi extends ResourceController
 
         ];
         $this->produksi->update($id, $data);
-        return redirect()->to(site_url('dashboard'))->with('success', 'Data Berhasil Diubah');
+        return redirect()->to(site_url('produksi/' . user()->id))->with('success', 'Kerjaan Berhasil Ditambahkan');
     }
 
     /**
