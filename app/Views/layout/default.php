@@ -45,9 +45,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-title"><?= user()->nama_pegawai ?></div>
-                            <a href="features-profile.html" class="dropdown-item has-icon">
+                            <a href="#" class="dropdown-item has-icon btn-profile">
                                 <i class="far fa-user"></i> Profile
                             </a>
+
+
                             <div class="dropdown-divider"></div>
                             <?php if (logged_in()) :  ?>
                                 <a href="/logout" class="dropdown-item has-icon text-danger" id="logout" data-confirm="Logout|Yakin Logout?" data-confirm-yes="returnLogout()">
@@ -65,10 +67,14 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="<?= site_url(); ?>">M&O</a>
+                        <?php if (in_groups('owner')) { ?>
+                            <img src="<?= site_url('img/Sistem Monitoring.png') ?>" class="img-fluid">
+                        <?php  } elseif (in_groups('operator')) { ?>
+                            <img src="<?= site_url('img/Sistem Informasi.png') ?>" class="img-fluid">
+                        <?php } ?>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="<?= site_url(); ?>">Oriza</a>
+                        <img src="<?= site_url('img/M&O logo.png') ?>" class="img-fluid">
                     </div>
                     <ul class="sidebar-menu">
                         <?= $this->include('layout/menu'); ?>
@@ -84,12 +90,63 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2024 <div class="bullet"></div> Design By <a href="">Oriza Dio Aria</a>
-                </div>
-                <div class="footer-right">
-                    2.3.0
+                    Copyright &copy; 2024 <div class="bullet"></div> Oriza Dio Aria
                 </div>
             </footer>
+
+
+            <!-- Modal -->
+            <form action="<?= site_url('pegawai') ?>" method="post">
+                <?= csrf_field() ?>
+                <div class="modal fade" id="ModalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class=" modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="info-orderan">
+
+
+                                <img src="/img/<?= user()->foto; ?>" class="card-img-top mb-3" alt="">
+
+                                <div class="custom-file mt-3">
+                                    <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="Upload" onchange="previewFoto()">
+                                    <label class="custom-file-label" for="foto"><?= user()->foto ?></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama_pegawai">Nama Pegawai</label>
+                                    <input type="text" class="form-control" id="nama_pegawai" value="<?= user()->nama_pegawai ?>" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jml_orderan">Alamat</label>
+                                    <input type="text" class="form-control" id="jml_orderan" value="<?= user()->alamat ?>" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telp">Telepon</label>
+                                    <input type="text" class="form-control" id="telp" value="<?= user()->telp ?>" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" value="<?= user()->email ?>" disabled>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
