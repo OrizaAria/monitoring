@@ -20,6 +20,7 @@ $routes->resource('pegawai');
 $routes->resource('produksi');
 $routes->resource('dashboard');
 $routes->get('/', 'Dashboard::index');
+// $routes->get('/profile', 'Pegawai::profile');
 $routes->get('/upah/(.*)/info', 'Upah::info/$1');
 $routes->put('/upah/(.*)/bayar', 'Upah::bayar/$1');
 $routes->put('/orderan/(.*)/kirim', 'Orderan::kirim/$1');

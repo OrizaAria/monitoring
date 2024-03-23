@@ -49,6 +49,7 @@ function btnBayar(id) {
     $('#byr-' + id).submit()
 }
 
+
 $(document).ready(function () {
 
     // get Edit Product
@@ -126,6 +127,12 @@ $(document).ready(function () {
     // Tambah Data Orderan
     $('.btn-tambah-orderan').on('click', function () {
         $('#ModalTambahOrderan').modal('show');
+    });
+    
+    
+    // Tambah Data Orderan
+    $('.btn-profile').on('click', function () {
+        $('#ModalProfile').modal('show');
     });
     
 

@@ -89,7 +89,7 @@
                                 <h4>Foto Sample</h4>
                             </div>
                             <div class="card-body">
-                                <img src="/img/<?= $orderan->foto; ?>" class="card-img-top mb-3" alt="">
+                                <img src="/img/<?= $orderan->foto; ?>" class="card-img-top mb-3" alt="" width="20px">
                                 <h4><?= $orderan->nama_orderan ?> | <?= $orderan->brand; ?></h4>
                                 <small>Customer : <?= $orderan->customer; ?></small><br>
                                 <h6 class="badge badge-success"><?= $orderan->proses ?></h6>
