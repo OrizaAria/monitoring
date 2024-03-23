@@ -11,6 +11,10 @@
             <a href="<?= site_url('dashboard'); ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i></a>
         </div>
         <h1>Info Data orderan</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="<?= site_url('') ?>">Dashboard</a></div>
+            <div class="breadcrumb-item">Info Data orderan</div>
+        </div>
     </div>
 
     <div class="section-body">

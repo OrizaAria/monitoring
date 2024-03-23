@@ -8,6 +8,10 @@
 <section class="section">
     <div class="section-header">
         <h1>Riwayat <?= $title; ?></h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="<?= site_url('') ?>">Dashboard</a></div>
+            <div class="breadcrumb-item">Riwayat Upah</div>
+        </div>
     </div>
 
     <?php if (session()->getFlashdata('success')) : ?>

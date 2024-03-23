@@ -42,6 +42,13 @@
         <?php } ?>
 
 
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="<?= site_url('') ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= site_url('produksi') ?>">Kelola Produksi</a></div>
+            <div class="breadcrumb-item">Info Produksi</div>
+        </div>
+
+
     </div>
 
     <div class="section-body">
