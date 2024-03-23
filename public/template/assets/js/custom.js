@@ -53,7 +53,7 @@ function btnBayar(id) {
 $(document).ready(function () {
 
     // get Edit Product
-    $('.btn-upah').on('click', function () {
+    $('.btn-konfirmasi').on('click', function () {
 
         // get data from button edit
         const id_produksi = $(this).data('id_produksi');
@@ -81,7 +81,7 @@ $(document).ready(function () {
         $('.nama_pegawai').val(nama_pegawai);
         $('.jml_konfirmasi').val(jml_konfirmasi);
         // Call Modal Edit
-        $('#ModalInfoUpah').modal('show');
+        $('#ModalKonfirmasiJumlah').modal('show');
     });
 
     // Info Orderan

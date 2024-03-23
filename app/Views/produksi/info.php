@@ -122,7 +122,7 @@
                                                 }
 
                                                 if ($statusUpah == "Selesai") {  ?>
-                                                    <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-tgl_upah="<?= date('Y-m-d') ?>">
+                                                    <a href="#" class="btn btn-primary btn-sm btn-konfirmasi position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-tgl_upah="<?= date('Y-m-d') ?>">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
                                                 <?php  } elseif ($statusUpah == "On Proses") { ?>
@@ -192,7 +192,7 @@
 <!-- Modal -->
 <form action="<?= site_url('upah') ?>" method="post">
     <?= csrf_field() ?>
-    <div class="modal fade" id="ModalInfoUpah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalKonfirmasiJumlah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class=" modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
