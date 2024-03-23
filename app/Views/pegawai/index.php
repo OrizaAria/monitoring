@@ -39,8 +39,9 @@
     <div class="section-body">
         <div class="card">
             <div class="card-header">
-                <div class="section-header-button">
-                    <a href="#" class="btn btn-primary btn-lg position-relative btn-tambah-pegawai">
+                <h4>Tabel Pegawai</h4>
+                <div class="card-header-action">
+                    <a href="#" class="btn btn-outline-primary btn-lg position-relative btn-tambah-pegawai">
                         <i class="fas fa-plus"> Tambah Data</i>
                     </a>
                 </div>
