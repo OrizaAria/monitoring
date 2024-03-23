@@ -107,7 +107,7 @@ class Upah extends ResourceController
         $this->upah->update($id, $data);
 
         if ($this->upah->affectedRows() > 0) {
-            return redirect()->to(site_url('upah'));
+            return redirect()->to(site_url('upah/' . $this->request->getVar('id_orderan') . "/info"));
         }
     }
 

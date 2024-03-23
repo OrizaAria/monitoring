@@ -63,6 +63,7 @@
                                                     <form action="<?= site_url('upah/' . $value->id_upah) ?>" method="post" class="d-inline" id="byr-<?= $value->id_upah ?>">
                                                         <?= csrf_field() ?>
                                                         <input type="hidden" name="_method" value="PUT">
+                                                        <input type="hidden" name="id_orderan" value="<?= $value->id_orderan; ?>">
                                                         <button class="btn btn-danger btn-sm" data-confirm="Bayar Upah?|Apakah anda yakin sudah membayar? <?= $value->id_upah; ?>" data-confirm-yes="btnBayar(<?= $value->id_upah ?>)">
                                                             <i class="fas fa-check"></i>
                                                         </button>
