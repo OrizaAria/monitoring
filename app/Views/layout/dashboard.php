@@ -280,7 +280,7 @@
 
                                 <div id="clpsAturanProd" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 
-                                    <p><?= $value->aturan; ?></p>
+                                    <textarea name="aturan" class="form-control" id="" cols="30" rows="10"><?= $value->aturan; ?></textarea>
 
                                 </div>
                             </div>
@@ -424,14 +424,14 @@
                                             <tr>
                                                 <td class="text-center" style="width: 5%">
 
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm btn-info-orederan position-relative" data-id_orderan="<?= $value->id; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>" data-proses="<?= $value->proses; ?>" data-jml_orderan="<?= $value->jml_orderan; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-tgl_masuk="<?= $value->tgl_masuk; ?>" data-aturan="<?= $value->aturan; ?>" data-foto="<?= $value->foto; ?>">
+                                                    <!-- <a href="#" class="btn btn-primary btn-sm btn-info-orederan position-relative" data-id_orderan="<?= $value->id; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>" data-proses="<?= $value->proses; ?>" data-jml_orderan="<?= $value->jml_orderan; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-deadline="<?= $value->deadline; ?>" data-aturan="<?= $value->aturan; ?>" data-foto="<?= $value->foto; ?>">
                                                         <i class="fas fa-plus"></i>
                                                     </a> -->
                                                     <a href="<?= site_url('orderan/' . $value->id) ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
                                                 </td>
                                                 <td style="width: 15%"><?= $value->nama_orderan; ?></td>
                                                 <td style="width: 10%"><?= $value->jml_orderan; ?> pcs</td>
-                                                <td class="text-center"><?= date('d/m/Y', strtotime($value->tgl_masuk)) ?></td>
+                                                <td class="text-center"><?= date('d/m/Y', strtotime($value->deadline)) ?></td>
 
                                             </tr>
 
@@ -483,8 +483,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="tgl_masuk">Deadline</label>
-                            <input type="text" class="form-control" id="tgl_masuk" disabled>
+                            <label for="deadline">Deadline</label>
+                            <input type="text" class="form-control" id="deadline" disabled>
                         </div>
 
                         <div class="form-group">
@@ -538,9 +538,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
+                            <label for="deadline" class="col-sm-3 col-form-label">Deadline</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk" autofocus value="<?= old('tgl_masuk'); ?>" required>
+                                <input type="date" class="form-control" id="deadline" name="deadline" autofocus value="<?= old('deadline'); ?>" required>
                             </div>
                         </div>
                         <div class="form-group row">

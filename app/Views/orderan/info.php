@@ -27,9 +27,9 @@
                         <div class="card-body row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
+                                    <label for="deadline" class="col-sm-3 col-form-label">Deadline</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk" value="<?= $orderan->tgl_masuk; ?>" disabled>
+                                        <input type="date" class="form-control" id="deadline" name="deadline" value="<?= $orderan->deadline; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group row">

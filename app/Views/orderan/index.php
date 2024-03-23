@@ -47,7 +47,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tanggal Masuk</th>
+                                <th>Deadline</th>
                                 <th>Nama orderan</th>
                                 <th>Brand</th>
                                 <th>Jumlah</th>
@@ -59,7 +59,7 @@
                             <?php foreach ($orderan as $ord => $value) : ?>
                                 <tr>
                                     <td><?= $ord + 1 ?></td>
-                                    <td><?= date('d/m/Y', strtotime($value->tgl_masuk)) ?></td>
+                                    <td><?= date('d/m/Y', strtotime($value->deadline)) ?></td>
                                     <td><?= $value->nama_orderan; ?></td>
                                     <td><?= $value->brand; ?></td>
                                     <td><?= $value->jml_orderan; ?> pcs</td>
@@ -108,9 +108,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
+                        <label for="deadline" class="col-sm-3 col-form-label">Deadline</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk" autofocus value="<?= old('tgl_masuk'); ?>" required>
+                            <input type="date" class="form-control" id="deadline" name="deadline" autofocus value="<?= old('deadline'); ?>" required>
                         </div>
                     </div>
                     <div class="form-group row">

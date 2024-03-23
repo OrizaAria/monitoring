@@ -26,9 +26,9 @@
                         <div class="card-body row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
+                                    <label for="deadline" class="col-sm-3 col-form-label">Deadline</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk" value="<?= $orderan->tgl_masuk; ?>" required>
+                                        <input type="date" class="form-control" id="deadline" name="deadline" value="<?= $orderan->deadline; ?>" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -58,7 +58,12 @@
                                 <div class="form-group row">
                                     <label for="harga_orderan" class="col-sm-3 col-form-label">Harga</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="harga_orderan" name="harga_orderan" value="<?= $orderan->harga_orderan; ?>" required>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            </div>
+                                            <input type="number" class="form-control" id="harga_orderan" name="harga_orderan" value="<?= number_format(($orderan->harga_orderan), 0, ',', '.'); ?>" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -97,6 +102,12 @@
                                         <div class="col-1"></div>
                                     </div>
 
+                                </div>
+                                <div class="form-group">
+                                    <div class="col">
+                                        <label for="aturan" class="form-label">Aturan Produksi</label>
+                                        <textarea class="form-control" name="aturan" id="aturan" cols="30" rows="10"><?= $orderan->aturan; ?></textarea>
+                                    </div>
                                 </div>
                             </div>
 
