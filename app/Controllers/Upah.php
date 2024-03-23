@@ -66,13 +66,12 @@ class Upah extends ResourceController
             'tgl_upah' => $this->request->getVar('tgl_upah'),
             'total_upah' => $total,
             'status_upah' => 'Checked',
-
         ];
 
         $this->upah->insert($data);
 
         if ($this->upah->affectedRows() > 0) {
-            return redirect()->to(site_url('produksi'))->with('success', 'Data Berhasil Disimpan');
+            return redirect()->to(site_url('produksi/' . $this->request->getVar('id_orderan') . '/edit'));
         }
     }
 

@@ -114,17 +114,19 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                $statusUpah = 'Selesai Produksi';
+                                                $statusUpah = $value->status_hanca;
                                                 foreach ($upah as $key => $uph) {
                                                     if ($value->id_produksi == $uph->id_produksi) {
                                                         $statusUpah = $uph->status_upah;
                                                     }
                                                 }
 
-                                                if ($statusUpah == "Selesai Produksi") {  ?>
+                                                if ($statusUpah == "Selesai") {  ?>
                                                     <a href="#" class="btn btn-primary btn-sm btn-upah position-relative" data-id_produksi="<?= $value->id_produksi; ?>" data-id_orderan="<?= $value->id_orderan; ?>" data-id_user="<?= $value->id_user; ?>" data-nama_pegawai="<?= $value->nama_pegawai; ?>" data-jml_pribadi="<?= $value->jml_pribadi; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-tgl_upah="<?= date('Y-m-d') ?>">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
+                                                <?php  } elseif ($statusUpah == "On Proses") { ?>
+                                                    <span class="badge badge-secondary">On Process</i></span>
                                                 <?php  } else { ?>
                                                     <span class="badge badge-success">Checked</i></span>
                                                 <?php  } ?>
@@ -217,7 +219,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="orderan_id" class="orderan_id">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Konfirmasi</button>
                 </div>
