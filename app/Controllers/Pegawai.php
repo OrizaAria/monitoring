@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\databaseModel;
 use App\Models\PegawaiModel;
 
 class Pegawai extends ResourceController
@@ -11,6 +12,7 @@ class Pegawai extends ResourceController
 
     function __construct()
     {
+        $this->databs = new databaseModel();
         $this->users = new PegawaiModel();
     }
     /**
@@ -23,26 +25,6 @@ class Pegawai extends ResourceController
         $data['title'] = 'Pegawai';
         $data['pegawai'] = $this->users->getPegawai();
         return view('pegawai/index', $data);
-    }
-
-    /**
-     * Return the properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function show($id = null)
-    {
-        //
-    }
-
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-        //
     }
 
     /**
@@ -152,5 +134,12 @@ class Pegawai extends ResourceController
 
         // if ($this->model->affectedRows() > 0) {
         return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function profile()
+    {
+        // $data['user'] = $this->users->findAll();
+        $data['title'] = 'Profile';
+        return view('layout/profile', $data);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\DatabaseModel;
 use App\Models\OrderanModel;
 use App\Models\PegawaiModel;
 use App\Models\ProduksiModel;
@@ -14,6 +15,7 @@ class Upah extends ResourceController
 
     function __construct()
     {
+        $this->databs = new DatabaseModel();
         $this->orderan = new OrderanModel();
         $this->pegawai = new PegawaiModel();
         $this->produksi = new ProduksiModel();
@@ -47,15 +49,6 @@ class Upah extends ResourceController
         return view('upah/riwayat', $data);
     }
 
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-        //
-    }
 
     /**
      * Create a new resource object, from "posted" parameters
@@ -81,16 +74,6 @@ class Upah extends ResourceController
         if ($this->upah->affectedRows() > 0) {
             return redirect()->to(site_url('produksi'))->with('success', 'Data Berhasil Disimpan');
         }
-    }
-
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function edit($id = null)
-    {
-        //
     }
 
     public function info($id = null)
@@ -142,16 +125,6 @@ class Upah extends ResourceController
         if ($this->upah->affectedRows() > 0) {
             return redirect()->to(site_url('dashboard'));
         }
-        //
-    }
-
-    /**
-     * Delete the designated resource object from the model
-     *
-     * @return ResponseInterface
-     */
-    public function delete($id = null)
-    {
         //
     }
 }

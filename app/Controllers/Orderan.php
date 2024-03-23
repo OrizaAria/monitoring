@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\DatabaseModel;
 use App\Models\OrderanModel;
 use App\Models\PegawaiModel;
 use App\Models\ProduksiModel;
@@ -12,6 +13,7 @@ class orderan extends ResourceController
 {
     function __construct()
     {
+        $this->databs = new DatabaseModel();
         $this->orderan = new OrderanModel();
         $this->pegawai = new PegawaiModel();
         $this->produksi = new ProduksiModel();
@@ -55,7 +57,7 @@ class orderan extends ResourceController
         // cara 2 : nama beda
         $data = [
             'nama_orderan' => $this->request->getVar('nama_orderan'),
-            'tgl_masuk' => $this->request->getVar('tgl_masuk'),
+            'deadline' => $this->request->getVar('deadline'),
             'customer' => $this->request->getVar('customer'),
             'brand' => $this->request->getVar('brand'),
             'proses' => $this->request->getVar('proses'),
@@ -129,7 +131,7 @@ class orderan extends ResourceController
 
         $data = [
             'nama_orderan' => $this->request->getVar('nama_orderan'),
-            'tgl_masuk' => $this->request->getVar('tgl_masuk'),
+            'deadline' => $this->request->getVar('deadline'),
             'customer' => $this->request->getVar('customer'),
             'brand' => $this->request->getVar('brand'),
             'proses' => $this->request->getVar('proses'),

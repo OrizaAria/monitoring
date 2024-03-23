@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\DatabaseModel;
 use App\Models\OrderanModel;
 use App\Models\PegawaiModel;
 use App\Models\ProduksiModel;
@@ -13,6 +14,7 @@ class Dashboard extends ResourceController
 {
     function __construct()
     {
+        $this->databs = new DatabaseModel();
         $this->orderan = new OrderanModel();
         $this->pegawai = new PegawaiModel();
         $this->produksi = new ProduksiModel();
