@@ -136,10 +136,37 @@ class Pegawai extends ResourceController
         return redirect()->to(site_url('pegawai'))->with('success', 'Data Berhasil Dihapus');
     }
 
-    public function profile()
+    public function profile($id = null)
     {
-        // $data['user'] = $this->users->findAll();
-        $data['title'] = 'Profile';
-        return view('layout/profile', $data);
+        // ambil gambar
+        $fileFoto = $this->request->getFile('foto');
+        // pengkondisian Foto
+        if ($fileFoto->getError() == 4) {
+            $namaFoto = $this->request->getVar('fotoLama');
+        } else {
+            // generate nama Foto random
+            $namaFoto = $fileFoto->getRandomName();
+            // pindahkan file
+            $fileFoto->move('img', $namaFoto);
+            if ($this->request->getVar('fotoLama') != 'default_user.png') {
+                # code...
+                unlink('img/' . $this->request->getVar('fotoLama'));
+            }
+        }
+
+        $data = [
+            'nama_pegawai' => $this->request->getVar('nama_pegawai'),
+            'alamat' => $this->request->getVar('alamat'),
+            'bagian' => $this->request->getVar('bagian'),
+            'telp' => $this->request->getVar('telp'),
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
+            'foto' => $namaFoto
+
+        ];
+
+        $this->users->update($id, $data);
+
+        return redirect()->to(site_url('dashboard'));
     }
 }

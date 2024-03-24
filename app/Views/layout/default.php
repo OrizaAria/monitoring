@@ -49,7 +49,6 @@
                                 <i class="far fa-user"></i> Profile
                             </a>
 
-
                             <div class="dropdown-divider"></div>
                             <?php if (logged_in()) :  ?>
                                 <a href="/logout" class="dropdown-item has-icon text-danger" id="logout" data-confirm="Logout|Yakin Logout?" data-confirm-yes="returnLogout()">
@@ -64,6 +63,68 @@
                     </li>
                 </ul>
             </nav>
+
+            <!-- Modal -->
+            <form action="<?= site_url('pegawai/' . user()->id . '/profile') ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+                <?= csrf_field() ?>
+                <div class="modal fade" id="ModalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class=" modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="info-orderan">
+
+
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="fotoLama" value="<?= user()->foto; ?>">
+
+                                <div class="form-group">
+                                    <img src="/img/<?= user()->foto; ?>" class="img-thumbnail img-preview">
+                                    <div class="custom-file mt-3">
+                                        <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="upload" onchange="previewFoto()">
+                                        <label class="custom-file-label" for="foto"><?= user()->foto; ?></label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama_pegawai">Nama Pegawai</label>
+                                    <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" value="<?= user()->nama_pegawai ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bagian">Bagian</label>
+                                    <input type="text" class="form-control" id="bagian" name="bagian" value="<?= user()->bagian ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <input type="text" class="form-control" id="alamat" name="alamat" value="<?= user()->alamat ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telp">Telepon</label>
+                                    <input type="text" class="form-control" id="telp" name="telp" value="<?= user()->telp ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" value="<?= user()->email ?>">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
@@ -76,7 +137,13 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <img src="<?= site_url('img/M&O logo.png') ?>" class="img-fluid">
                     </div>
+                    <hr>
                     <ul class="sidebar-menu">
+                        <div class="col-sm-12">
+                            <img src="/img/<?= user()->foto ?>" class="float-none img-thumbnail rounded-circle mb-3" type="file">
+                            <h5><?= user()->nama_pegawai ?></h5>
+                        </div>
+                        <hr>
                         <?= $this->include('layout/menu'); ?>
                     </ul>
 
@@ -95,58 +162,7 @@
             </footer>
 
 
-            <!-- Modal -->
-            <form action="<?= site_url('pegawai') ?>" method="post">
-                <?= csrf_field() ?>
-                <div class="modal fade" id="ModalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class=" modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="info-orderan">
 
-
-                                <img src="/img/<?= user()->foto; ?>" class="card-img-top mb-3" alt="">
-
-                                <div class="custom-file mt-3">
-                                    <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="Upload" onchange="previewFoto()">
-                                    <label class="custom-file-label" for="foto"><?= user()->foto ?></label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nama_pegawai">Nama Pegawai</label>
-                                    <input type="text" class="form-control" id="nama_pegawai" value="<?= user()->nama_pegawai ?>" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="jml_orderan">Alamat</label>
-                                    <input type="text" class="form-control" id="jml_orderan" value="<?= user()->alamat ?>" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="telp">Telepon</label>
-                                    <input type="text" class="form-control" id="telp" value="<?= user()->telp ?>" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" value="<?= user()->email ?>" disabled>
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 

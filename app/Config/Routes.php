@@ -16,6 +16,7 @@ $routes->get('create-db', function () {
 $routes->get('/register', 'Home::register');
 $routes->put('/orderan/(.*)/selesai', 'Orderan::selesai/$1');
 
+$routes->put('/pegawai/(.*)/profile', 'Pegawai::profile/$1');
 $routes->resource('pegawai');
 $routes->resource('produksi');
 $routes->resource('dashboard');
