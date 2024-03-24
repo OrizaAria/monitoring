@@ -213,6 +213,16 @@
                         <label>Nama Pegawai</label>
                         <input type="text" class="form-control nama_pegawai" name="nama_pegawai" placeholder="Nama Pegawai" disabled>
                     </div>
+
+                    <div class="form-group">
+                        <label>Harga Orderan</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-primary" id="basic-addon1" disabled>Rp</button>
+                            </div>
+                            <input type="number" class="form-control harga_orderan" id="harga_orderan" name="harga_orderan" disabled>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>Jumlah pribadi</label>
                         <input type="text" class="form-control jml_konfirmasi" name="jml_konfirmasi" placeholder="Jumlah Pribadi">

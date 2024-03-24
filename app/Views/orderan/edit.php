@@ -67,7 +67,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Rp</span>
                                             </div>
-                                            <input type="number" class="form-control" id="harga_orderan" name="harga_orderan" value="<?= number_format(($orderan->harga_orderan), 0, ',', '.'); ?>" required>
+                                            <input type="number" class="form-control" id="harga_orderan" name="harga_orderan" value="<?= $orderan->harga_orderan; ?>" required>
                                         </div>
                                     </div>
                                 </div>

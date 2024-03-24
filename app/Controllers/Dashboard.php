@@ -33,7 +33,7 @@ class Dashboard extends ResourceController
             $data['title'] = 'Dashboard';
             $data['orderan'] = $this->orderan->getOrderan();
             $data['prosesProduksi'] = $this->produksi->getProsesProduksi();
-            $data['getProduksi'] = $this->produksi->getProduksi(user()->id);
+            $data['getProduksi'] = $this->produksi->getProduksiKonfirmasi(user()->id);
             $data['upahBerjalan'] = $this->upah->getUpahBerjalan(user()->id);
             $data['produksi'] = $this->produksi->findAll();
             return view('layout/dashboard', $data);

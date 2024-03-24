@@ -138,6 +138,21 @@ class ProduksiModel extends Model
         return $query->getResult();
     }
 
+    function getProduksiKonfirmasi($id = null)
+    {
+        $builder = $this->db->table('produksi');
+        $builder->select('*');
+        $builder->select('users.id as id_user, users.foto as foto_pegawai, produksi.created_at as tanggal_mulai, produksi.id as id_produksi');
+        $builder->join('orderan', 'orderan.id = produksi.id_orderan');
+        $builder->join('users', 'users.id = produksi.id_user');
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
+        $builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
+        $builder->where('produksi.id_user', $id);
+        $builder->where('produksi.status_hanca', 'Selesai');
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
     function getInfoProduksi($id = null)
     {
         $builder = $this->db->table('produksi');

@@ -137,13 +137,20 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <img src="<?= site_url('img/M&O logo.png') ?>" class="img-fluid">
                     </div>
+
                     <hr>
-                    <ul class="sidebar-menu">
+
+                    <div class="sidebar-brand">
                         <div class="col-sm-12">
-                            <img src="/img/<?= user()->foto ?>" class="float-none img-thumbnail rounded-circle mb-3" type="file">
+                            <img src="/img/<?= user()->foto ?>" class="img-thumbnail rounded-circle mb-3" type="file">
                             <h5><?= user()->nama_pegawai ?></h5>
                         </div>
-                        <hr>
+                    </div>
+                    <div class="sidebar-brand sidebar-brand-sm">
+                        <img src="/img/<?= user()->foto ?>" class="img-thumbnail rounded-circle mb-3" type="file">
+                    </div>
+                    <hr>
+                    <ul class="sidebar-menu">
                         <?= $this->include('layout/menu'); ?>
                     </ul>
 
@@ -201,6 +208,22 @@
 
             const fileFoto = new FileReader();
             fileFoto.readAsDataURL(foto.files[0]);
+
+            fileFoto.onload = function(e) {
+                fotoPreview.src = e.target.result;
+            }
+        }
+
+        function viewFoto() {
+
+            const photo = document.querySelector('#photo');
+            const fotoLabel = document.querySelector('.custom-photo');
+            const fotoPreview = document.querySelector('.imge-preview');
+
+            fotoLabel.textContent = photo.files[0].name;
+
+            const fileFoto = new FileReader();
+            fileFoto.readAsDataURL(photo.files[0]);
 
             fileFoto.onload = function(e) {
                 fotoPreview.src = e.target.result;

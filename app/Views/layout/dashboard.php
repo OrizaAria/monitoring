@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-md" id="table-1" width="100%">
+                            <table class="table table-bordered table-striped table-md table-hover" id="table-1" width="100%">
                                 <thead>
 
                                     <tr class="table-primary">
@@ -138,7 +138,7 @@
                 <div class="collapse" id="clpProduksiSelesai">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered table-striped table-md" id="table-1">
+                            <table class="table table-bordered table-striped table-md table-hover" id="table-1">
                                 <thead>
                                     <tr class="text-center">
                                         <th>Nama Orderan</th>
@@ -200,7 +200,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-md">
+                                <table class="table table-bordered table-striped table-md table-hover" id="table-1">
                                     <thead>
                                         <tr class="text-center">
                                             <th width="40%">Nama Operator</th>
@@ -279,9 +279,7 @@
                                 </h2>
 
                                 <div id="clpsAturanProd" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-
-                                    <textarea name="aturan" class="form-control" id="" cols="30" rows="10"><?= $value->aturan; ?></textarea>
-
+                                    <textarea name="aturan" id="aturan" cols="45" rows="10" disabled><?= $value->aturan; ?></textarea>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -320,7 +318,7 @@
                 <div class="collapse" id="clpUpah">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered table-striped table-md" id="table-1">
+                            <table class="table table-bordered table-striped table-md table-hover" id="table-1">
                                 <thead>
                                     <tr class="text-center">
                                         <th>Nama Orderan</th>
@@ -353,7 +351,7 @@
                     </a>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Riwayat Kerjaan</h4>
+                            <h4>Kerjaan Belum Dicek</h4>
                         </div>
                         <div class="card-body">
                             <?php $prd = 0;
@@ -408,7 +406,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-md" id="table-1">
+                                <table class="table table-bordered table-striped table-md table-hover" id="table-1">
                                     <thead>
                                         <tr class="text-center">
                                             <th>Action</th>
@@ -424,10 +422,10 @@
                                             <tr>
                                                 <td class="text-center" style="width: 5%">
 
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm btn-info-orederan position-relative" data-id_orderan="<?= $value->id; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>" data-proses="<?= $value->proses; ?>" data-jml_orderan="<?= $value->jml_orderan; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-deadline="<?= $value->deadline; ?>" data-aturan="<?= $value->aturan; ?>" data-foto="<?= $value->foto; ?>">
+                                                    <a href="#" class="btn btn-primary btn-sm btn-info-orederan position-relative" data-id_orderan="<?= $value->id; ?>" data-nama_orderan="<?= $value->nama_orderan; ?>" data-proses="<?= $value->proses; ?>" data-jml_orderan="<?= $value->jml_orderan; ?>" data-harga_orderan="<?= $value->harga_orderan; ?>" data-deadline="<?= $value->deadline; ?>" data-aturan="<?= $value->aturan; ?>" data-foto="<?= $value->foto; ?>">
                                                         <i class="fas fa-plus"></i>
-                                                    </a> -->
-                                                    <a href="<?= site_url('orderan/' . $value->id) ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
+                                                    </a>
+                                                    <!-- <a href="<?= site_url('orderan/' . $value->id) ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a> -->
                                                 </td>
                                                 <td style="width: 15%"><?= $value->nama_orderan; ?></td>
                                                 <td style="width: 10%"><?= $value->jml_orderan; ?> pcs</td>
@@ -451,13 +449,12 @@
 
 </section>
 
-
 <?php if (in_groups('operator')) : ?>
     <!-- Modal -->
     <form action="<?= site_url('produksi') ?>" method="post">
         <?= csrf_field() ?>
         <div class="modal fade" id="ModalInfoOrderan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class=" modal-dialog" role="document">
+            <div class=" modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Info Produksi</h5>
@@ -507,9 +504,9 @@
 
                         <h2 class="mb-3" style="text-align: center;">Aturan Produksi</h2>
 
-                        <textarea name="aturan" id="aturan" cols="63" rows="30" disabled><?= $value->aturan; ?></textarea>
-
-
+                        <div class="form-group">
+                            <textarea name="aturan" id="aturan" cols="53" rows="10" disabled><?= $value->aturan; ?></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -589,7 +586,7 @@
                             <div class="row mb-3">
                                 <div class="col"></div>
                                 <div class="col">
-                                    <img src="/img/default_shirt.png" class="img-thumbnail img-preview">
+                                    <img src="/img/default_shirt.png" class="img-thumbnail imge-preview">
                                 </div>
                                 <div class="col"></div>
                             </div>
@@ -598,8 +595,8 @@
                                 <div class="col-10">
 
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="foto" name="foto" aria-describedby="foto" aria-label="Upload" onchange="previewFoto()">
-                                        <label class="custom-file-label" for="foto">Choose file..</label>
+                                        <input type="file" class="custom-file-input" id="photo" name="foto" aria-describedby="foto" aria-label="Upload" onchange="viewFoto()">
+                                        <label class="custom-file-label custom-photo" for="photo">Choose file..</label>
                                     </div>
                                 </div>
                                 <div class="col-1"></div>

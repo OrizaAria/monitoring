@@ -97,7 +97,7 @@ $(document).ready(function () {
         //     style: 'currency',
         //     currency: 'IDR',
         // }).format(harga_orderan);
-        const tgl_masuk = $(this).data('tgl_masuk');
+        const deadline = $(this).data('deadline');
         const aturan = $(this).data('aturan');
         const foto = $(this).data('foto');
         // const jml_konfirmasi = $(this).data('jml_konfirmasi');
@@ -109,7 +109,7 @@ $(document).ready(function () {
         $("#info-orderan #jml_orderan").val(jml_orderan);
         $("#info-orderan #harga_orderan").val(harga_orderan.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.'));
         // $("#info-orderan #harga_orderan").val(formatRupiah);
-        $("#info-orderan #tgl_masuk").val(tgl_masuk);
+        $("#info-orderan #deadline").val(deadline);
         $("#info-orderan #aturan").val(aturan);
         $("#info-orderan #fotoOrderan").attr("src","/img/"+foto);
         // Call Modal Edit

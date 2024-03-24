@@ -58,7 +58,7 @@ class Upah extends ResourceController
     public function create()
     {
         $total = $this->request->getVar('jml_konfirmasi') * $this->request->getVar('harga_orderan');
-        $data = [
+        $data1 = [
             'id_produksi' => $this->request->getVar('id_produksi'),
             'id_orderan' => $this->request->getVar('id_orderan'),
             'id_user' => $this->request->getVar('id_user'),
@@ -68,7 +68,11 @@ class Upah extends ResourceController
             'status_upah' => 'Checked',
         ];
 
-        $this->upah->insert($data);
+        $data2 = [
+            'status_hanca' => 'Checked',
+        ];
+        $this->upah->insert($data1);
+        $this->produksi->update($this->request->getVar('id_produksi'), $data2);
 
         if ($this->upah->affectedRows() > 0) {
             return redirect()->to(site_url('produksi/' . $this->request->getVar('id_orderan') . '/edit'));
