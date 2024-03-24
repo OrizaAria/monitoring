@@ -357,7 +357,7 @@
                         </div>
                         <div class="card-body">
                             <?php $prd = 0;
-                            foreach ($getHanca as $prd => $value) {
+                            foreach ($getProduksi as $prd => $value) {
                                 $prd = $prd + 1;
                             } ?>
                             <span><?= $prd; ?> Kerjaan</span>

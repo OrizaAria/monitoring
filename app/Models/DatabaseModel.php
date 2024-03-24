@@ -124,7 +124,7 @@ class ProduksiModel extends Model
     //     return $query->getResult();
     // }
 
-    function getHanca($id = null)
+    function getProduksi($id = null)
     {
         $builder = $this->db->table('produksi');
         $builder->select('*');
